@@ -45,7 +45,7 @@ app.get("/api", (req, res) => {
 
 
 app.use("/api/users",userApi);
-app.use("/api/course",courseApi);
+app.use("/api/courses",courseApi);
 
 app.use("/api/*", function (req, res) {
   res.status(404).json({ message: "Not Found!!!" });
