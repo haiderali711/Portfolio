@@ -1,21 +1,21 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const morgan = require('morgan');
-const path = require('path');
-const cors = require('cors');
-const history = require('connect-history-api-fallback');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const path = require("path");
+const cors = require("cors");
+const history = require("connect-history-api-fallback");
 // const passport = require("passport");
 // const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-const userApi = require("./routes/users");
+const userApi = require("./routes/user");
 const courseApi = require("./routes/course");
-
+const degreeApi = require("./routes/degree");
 
 const app = express();
 app.use(bodyParser.json());
-app.use(morgan('dev'));
-app.options('*', cors());
+app.use(morgan("dev"));
+app.options("*", cors());
 app.use(cors());
 // passport.use(new GoogleStrategy());
 
@@ -27,7 +27,7 @@ const PORT = process.env.PORT || 3000;
 mongoose.connect(
   mongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  (err) => {
+  err => {
     if (err) {
       console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);
       console.error(err.stack);
@@ -43,22 +43,20 @@ app.get("/api", (req, res) => {
   res.json({ message: "Welcome to your DIT341 backend ExpressJS project!" });
 });
 
+app.use("/api/users", userApi);
+app.use("/api/courses", courseApi);
+app.use("/api/degrees", degreeApi);
 
-app.use("/api/users",userApi);
-app.use("/api/courses",courseApi);
-
-app.use("/api/*", function (req, res) {
+app.use("/api/*", function(req, res) {
   res.status(404).json({ message: "Not Found!!!" });
 });
-
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode
 app.use(history());
-const root = path.normalize(__dirname + '/..');
-const client = path.join(root, 'client', 'dist');
+const root = path.normalize(__dirname + "/..");
+const client = path.join(root, "client", "dist");
 app.use(express.static(client));
-
 
 // Error handler (i.e., when exception is thrown) must be registered last
 const env = app.get("env");
@@ -66,7 +64,7 @@ app.use((err, req, res) => {
   console.error(err.stack);
   const err_res = {
     message: err.message,
-    error: {},
+    error: {}
   };
 
   if (env === "development") {
@@ -76,7 +74,7 @@ app.use((err, req, res) => {
   res.json(err_res);
 });
 
-app.listen(PORT, (err) => {
+app.listen(PORT, err => {
   if (err) throw err;
   console.log(`Express server listening on port ${PORT}, in ${env} mode`);
   console.log(`Backend: http://localhost:${PORT}/api/`);

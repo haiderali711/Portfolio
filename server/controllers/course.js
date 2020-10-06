@@ -1,10 +1,13 @@
 const Course = require("../models/Course");
+
 const createCourse = (req, res, next) => {
-  const course = new Course(req.body);
   Course.find(
     { name: req.body.name, grade: req.body.grade, user: req.body.user },
-    foundUser => {
-      if (foundUser !== null) {
+    (err , foundUser) => {
+       
+      if (foundUser.length === 0) { 
+        const course = new Course(req.body);
+
         course
           .save()
           .then(result => {
@@ -14,7 +17,7 @@ const createCourse = (req, res, next) => {
             res.status(500).json({ error: error });
           });
       } else {
-        throw 404;
+        res.status(404).json({message : "already exists"});
       }
     }
   ).catch(error => {
