@@ -21,6 +21,8 @@ const createCourse = (req, res, next) => {
       }
     }
   ).catch(error => {
+    console.log("catch error")
+
     if (error === 404) res.status(404).json({message : "already exists"});
     else res.status(500).json({ error: error });
   });
