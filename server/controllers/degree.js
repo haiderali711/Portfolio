@@ -5,10 +5,10 @@ const createDegree = (req, res) => {
 
   degree
     .save()
-    .then((result) => {
+    .then(result => {
       res.status(201).json(result);
     })
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
     });
 };
@@ -17,36 +17,28 @@ const addCourseID = (req, res) => {
   var degreeId = req.params.id;
   var courseId = req.params.courseID;
 
-  Degree.findOne({ _id: degreeId}, (err ,foundItem) => {
-    // console.log(foundItem.course.includes(degreeId))
-    if (!foundItem.course.includes(degreeId)) {
-
-      Degree.findOneAndUpdate(
-        { _id: degreeId },
-        { $push: { course: courseId } },
-        { new: true },
-        (err, foundDegree) => {
-          res.status(200).json(foundDegree);
-        }
-      ).catch((error) => {
-        if (error === 404) res.status(404).json();
-        else res.status(500).json({ error: error });
-      });
-    } else {
-      res.status(404).json({ message: "The course has already been included" });
+  Degree.findOneAndUpdate(
+    { _id: degreeId },
+    { $addToSet: { course: courseId } },
+    { new: true },
+    (err, foundDegree) => {
+      res.status(200).json(foundDegree);
     }
+  ).catch(error => {
+    if (error === 404) res.status(404).json();
+    else res.status(500).json({ error: error });
   });
 };
 
 const deleteDegree = (req, res) => {
   Course.findOneAndDelete({ _id: req.params.id })
     .exec()
-    .then((result) => {
+    .then(result => {
       if (!result) throw 404;
 
       res.status(200).json(result);
     })
-    .catch((error) => {
+    .catch(error => {
       if (error === 404) res.status(404).json({ error: `degree not found.` });
       else res.status(500).json({ error: error });
     });
@@ -55,5 +47,5 @@ const deleteDegree = (req, res) => {
 module.exports = {
   createDegree,
   addCourseID,
-  deleteDegree,
+  deleteDegree
 };
