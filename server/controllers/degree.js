@@ -18,7 +18,7 @@ const addCourseID = (req, res) => {
   var courseId = req.params.courseID;
 
   Degree.findById({ _id: degreeId }, (foundItem) => {
-    if (foundItem.length === 1) {
+    if (!foundItem.course.includes(degreeId)) {
       Degree.findOneAndUpdate(
         { _id: degreeId },
         { $push: { course: courseId } },
