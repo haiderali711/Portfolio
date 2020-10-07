@@ -16,16 +16,23 @@ const createDegree = (req, res) => {
 const addCourseID = (req, res) => {
   var degreeId = req.params.id;
   var courseId = req.params.courseID;
-  Degree.findOneAndUpdate(
-    { _id: degreeId },
-    { $push: { course: courseId } },
-    { new: true },
-    (err, foundDegree) => {
-      res.status(200).json(foundDegree);
+
+  Degree.findById({ _id: degreeId }, (foundItem) => {
+    if (foundItem.length === 1) {
+      Degree.findOneAndUpdate(
+        { _id: degreeId },
+        { $push: { course: courseId } },
+        { new: true },
+        (err, foundDegree) => {
+          res.status(200).json(foundDegree);
+        }
+      ).catch((error) => {
+        if (error === 404) res.status(404).json();
+        else res.status(500).json({ error: error });
+      });
+    } else {
+      res.status(404).json({ message: "No Degree was found" });
     }
-  ).catch((error) => {
-    if (error === 404) res.status(404).json();
-    else res.status(500).json({ error: error });
   });
 };
 
