@@ -14,8 +14,8 @@ const createDegree = (req, res) => {
 };
 
 const addCourseID = (req, res) => {
-  var degreeId = req.body.id;
-  var courseId = req.body.courseID;
+  var degreeId = req.params.id;
+  var courseId = req.params.courseID;
   Degree.findOneAndUpdate(
     { _id: degreeId },
     { $push: { course: courseId } },
