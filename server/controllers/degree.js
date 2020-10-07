@@ -17,8 +17,10 @@ const addCourseID = (req, res) => {
   var degreeId = req.params.id;
   var courseId = req.params.courseID;
 
-  Degree.findById({ _id: degreeId }, (foundItem) => {
+  Degree.findOne({ _id: degreeId}, (err ,foundItem) => {
+    // console.log(foundItem.course.includes(degreeId))
     if (!foundItem.course.includes(degreeId)) {
+
       Degree.findOneAndUpdate(
         { _id: degreeId },
         { $push: { course: courseId } },
@@ -31,7 +33,7 @@ const addCourseID = (req, res) => {
         else res.status(500).json({ error: error });
       });
     } else {
-      res.status(404).json({ message: "No Degree was found" });
+      res.status(404).json({ message: "The course has already been included" });
     }
   });
 };
