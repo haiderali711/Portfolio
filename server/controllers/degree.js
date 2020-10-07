@@ -13,6 +13,7 @@ const createDegree = (req, res) => {
     });
 };
 
+
 const addCourseID = (req, res) => {
   var degreeId = req.params.id;
   var courseId = req.params.courseID;
@@ -31,7 +32,7 @@ const addCourseID = (req, res) => {
 };
 
 const deleteDegree = (req, res) => {
-  Course.findOneAndDelete({ _id: req.params.id })
+  Degree.findOneAndDelete({ _id: req.params.id })
     .exec()
     .then(result => {
       if (!result) throw 404;
@@ -47,5 +48,5 @@ const deleteDegree = (req, res) => {
 module.exports = {
   createDegree,
   addCourseID,
-  deleteDegree
+  deleteDegree,
 };

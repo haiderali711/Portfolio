@@ -9,6 +9,8 @@ router.post("/login", UserController.checkAuthentication);
 
 router.get("/:id/courses", UserController.findCourseByUserId);
 
+router.get("/:id/degrees", UserController.findDegreeByUserId);
+
 // router.get('/:id/degreesÎ', UserController.findDegreeByUserId);
 
 router.patch("/:id", UserController.updateWithId);

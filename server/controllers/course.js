@@ -1,12 +1,14 @@
 const Course = require("../models/Course");
+const Degree = require('../models/Degree')
 
-const createCourse = (req, res, next) => {
+const createCourse = (req, res) => {
+  const course = new Course(req.body);
+
   Course.find(
     { name: req.body.name, grade: req.body.grade, user: req.body.user },
     (err , foundUser) => {
-       
-      if (foundUser.length === 0) { 
-        const course = new Course(req.body);
+       console.log(foundUser.length)
+      if (foundUser.length == 0 ) { 
 
         course
           .save()
@@ -26,6 +28,14 @@ const createCourse = (req, res, next) => {
     if (error === 404) res.status(404).json({message : "already exists"});
     else res.status(500).json({ error: error });
   });
+
+  // Adding the course to the Degrees if degree exists
+
+  if (course.degree !== undefined){
+    
+  }
+
+
 };
 
 const updateCourse = (req, res) => {
@@ -59,5 +69,5 @@ const deleteCourse = (req, res) => {
 module.exports = {
   createCourse,
   updateCourse,
-  deleteCourse
+  deleteCourse,
 };
