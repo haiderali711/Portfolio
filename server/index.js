@@ -11,6 +11,8 @@ const history = require("connect-history-api-fallback");
 const userApi = require("./routes/user");
 const courseApi = require("./routes/course");
 const degreeApi = require("./routes/degree");
+const projectApi = require("./routes/project");
+// const skillApi = require("./routes/skill")
 
 const app = express();
 app.use(bodyParser.json());
@@ -27,7 +29,7 @@ const PORT = process.env.PORT || 3000;
 mongoose.connect(
   mongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  err => {
+  (err) => {
     if (err) {
       console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);
       console.error(err.stack);
@@ -46,8 +48,10 @@ app.get("/api", (req, res) => {
 app.use("/api/users", userApi);
 app.use("/api/courses", courseApi);
 app.use("/api/degrees", degreeApi);
+app.use("/api/projects", projectApi);
+// app.use("/api/skills", skillApi);
 
-app.use("/api/*", function(req, res) {
+app.use("/api/*", function (req, res) {
   res.status(404).json({ message: "Not Found!!!" });
 });
 
@@ -64,7 +68,7 @@ app.use((err, req, res) => {
   console.error(err.stack);
   const err_res = {
     message: err.message,
-    error: {}
+    error: {},
   };
 
   if (env === "development") {
@@ -74,7 +78,7 @@ app.use((err, req, res) => {
   res.json(err_res);
 });
 
-app.listen(PORT, err => {
+app.listen(PORT, (err) => {
   if (err) throw err;
   console.log(`Express server listening on port ${PORT}, in ${env} mode`);
   console.log(`Backend: http://localhost:${PORT}/api/`);

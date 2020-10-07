@@ -92,6 +92,7 @@ const findDegreeByUserId = (req, res) => {
   const userId = req.params.id;
 
   Degree.find({ user: userId })
+  .populate("course")
   .exec()
   .then ( result =>{
     if(result.length === 0) throw 404
