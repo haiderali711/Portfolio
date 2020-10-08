@@ -11,7 +11,7 @@ router.get("/:id/courses", UserController.findCourseByUserId);
 
 router.get("/:id/degrees", UserController.findDegreeByUserId);
 
-// router.get('/:id/degreesÎ', UserController.findDegreeByUserId);
+router.get('/:id/projects', UserController.findProjectsByUserId);
 
 router.patch("/:id", UserController.updateWithId);
 
