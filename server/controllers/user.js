@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Course = require("../models/Course");
 const Degree = require("../models/Degree");
+const Project = require("../models/Project");
 
 const createUser = (req, res) => {
   var emailU = req.body.email;
@@ -10,7 +11,7 @@ const createUser = (req, res) => {
       var user = null;
       user = new User(req.body);
 
-      user.save(function(err) {
+      user.save(function (err) {
         if (err) {
           return next(err);
         }
@@ -19,7 +20,7 @@ const createUser = (req, res) => {
     } else {
       res.status(201).json({ emailAready: true });
     }
-  }).catch(error => {
+  }).catch((error) => {
     if (error === 401) res.status(404).json();
     else res.status(500).json({ error: error });
   });
@@ -28,12 +29,12 @@ const createUser = (req, res) => {
 const deleteUserWithId = (req, res, next) => {
   User.findOneAndDelete({ _id: req.params.id })
     .exec()
-    .then(result => {
+    .then((result) => {
       if (!result) throw 404;
 
       res.status(200).json(result);
     })
-    .catch(error => {
+    .catch((error) => {
       if (error === 404) res.status(404).json({ error: `user not found.` });
       else res.status(500).json({ error: error });
     });
@@ -74,15 +75,15 @@ const findCourseByUserId = (req, res) => {
 
   Course.find({ user: { $eq: userId } })
     .exec()
-    .then(result => {
+    .then((result) => {
       if (result.length === 0) throw 404;
 
       res.status(200).json(result);
     })
-    .catch(error => {
+    .catch((error) => {
       if (error === 404)
         res.status(404).json({
-          error: `No courses found for user with id : ${userId}`
+          error: `No courses found for user with id : ${userId}`,
         });
       else res.status(500).json({ error: error });
     });
@@ -92,20 +93,39 @@ const findDegreeByUserId = (req, res) => {
   const userId = req.params.id;
 
   Degree.find({ user: userId })
-  .populate("course")
-  .exec()
-  .then ( result =>{
-    if(result.length === 0) throw 404
+    .populate("course")
+    .exec()
+    .then((result) => {
+      if (result.length === 0) throw 404;
 
-    res.status(200).json(result)
-  })
-  .catch(error => {
-    if(error ===404){
-      res.stattus(404).json({
-        error : `No degrees registered for the user with id :  ${userId}`
-      })
-    }
-  })
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      if (error === 404) {
+        res.status(404).json({
+          error: `No degrees registered for the user with id :  ${userId}`,
+        });
+      }
+    });
+};
+
+const findProjectsByUserId = (req, res) => {
+  const userId = req.params.id;
+
+  Project.find({ user: userId })
+    .exec()
+    .then((result) => {
+      if (result.length === 0) throw 404;
+
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      if (error === 404) {
+        res.status(404).json({
+          error: `No Projects registered for the user with id :  ${userId}`,
+        });
+      }
+    });
 };
 
 module.exports = {
@@ -114,5 +134,6 @@ module.exports = {
   updateWithId,
   checkAuthentication,
   findCourseByUserId,
-  findDegreeByUserId
+  findDegreeByUserId,
+  findProjectsByUserId,
 };
