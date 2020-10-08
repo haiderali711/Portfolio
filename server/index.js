@@ -12,7 +12,7 @@ const userApi = require("./routes/user");
 const courseApi = require("./routes/course");
 const degreeApi = require("./routes/degree");
 const projectApi = require("./routes/project");
-// const skillApi = require("./routes/skill")
+const skillApi = require("./routes/skill");
 
 const app = express();
 app.use(bodyParser.json());
@@ -49,7 +49,7 @@ app.use("/api/users", userApi);
 app.use("/api/courses", courseApi);
 app.use("/api/degrees", degreeApi);
 app.use("/api/projects", projectApi);
-// app.use("/api/skills", skillApi);
+app.use("/api/skills", skillApi);
 
 app.use("/api/*", function (req, res) {
   res.status(404).json({ message: "Not Found!!!" });
