@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Course = require("../models/Course");
 const Degree = require("../models/Degree");
 const Project = require("../models/Project");
+const Skill = require("../models/Skill");
 
 const createUser = (req, res) => {
   var emailU = req.body.email;
@@ -128,6 +129,26 @@ const findProjectsByUserId = (req, res) => {
     });
 };
 
+const findSkillsByUserId = (req, res) => {
+  const userId = req.params.id;
+
+  Skill.find({ user: userId })
+    .populate("course")
+    .exec()
+    .then((result) => {
+      if (result.length === 0) throw 404;
+
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      if (error === 404)
+        res
+          .status(404)
+          .json({ message: "No Skill has been yet added for this user" });
+      else res.status(500).json({ error: error });
+    });
+};
+
 module.exports = {
   createUser,
   deleteUserWithId,
@@ -136,4 +157,5 @@ module.exports = {
   findCourseByUserId,
   findDegreeByUserId,
   findProjectsByUserId,
+  findSkillsByUserId,
 };

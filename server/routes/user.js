@@ -11,12 +11,12 @@ router.get("/:id/courses", UserController.findCourseByUserId);
 
 router.get("/:id/degrees", UserController.findDegreeByUserId);
 
-router.get('/:id/projects', UserController.findProjectsByUserId);
+router.get("/:id/projects", UserController.findProjectsByUserId);
+
+router.get("/:id/skills",UserController.findSkillsByUserId);
 
 router.patch("/:id", UserController.updateWithId);
 
 router.delete("/:id", UserController.deleteUserWithId);
-
-// router.put('/:id', UserController.putUserWithId);
 
 module.exports = router;

@@ -8,7 +8,7 @@ const skillSchema = new Schema({
   type: { type: String, required: true, maxlength: 50 },
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
   project: { type: Schema.Types.ObjectId, ref: "Project" },
-  degree: { type: Schema.Types.ObjectId, ref: "Degree" },
+  course: { type: Schema.Types.ObjectId, ref: "Course" },
 });
 
 // skillSchema.plugin(mongoosePaginate);
