@@ -59,14 +59,21 @@ const checkAuthentication = (req, res, next) => {
   let userN = req.body.username;
   let passW = req.body.password;
 
-  User.findOne({ username: userN, password: passW }, (error, foundUser) => {
-    if (error) {
-      return next(error);
-    }
-    if (user === null) {
-      res.status(404).json({ authentication: failed });
+  User.findOne({ username: userN, password: passW }, (err, foundUser) => {
+    if (err) throw 404;
+    if (foundUser === null) {
+      res.status(404).json({ authenticated: false });
     } else {
-      res.status(200).json({ foundUser });
+      res.status(200).json({ 
+        age: foundUser.age,
+        publish: foundUser.publish,
+        id: foundUser._id,
+        name: foundUser.name,
+        surname: foundUser.surname,
+        email: foundUser.email,
+        username: foundUser.username,
+        authenticated : true
+       });
     }
   });
 };

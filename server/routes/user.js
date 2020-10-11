@@ -5,7 +5,7 @@ const UserController = require("../controllers/user");
 
 router.post("/", UserController.createUser);
 
-router.post("/login", UserController.checkAuthentication);
+router.get("/login", UserController.checkAuthentication);
 
 router.get("/:id/courses", UserController.findCourseByUserId);
 
