@@ -1,7 +1,6 @@
 import React from "react";
-import NavBar from "./Components/NavigationBarItem";
-import Home from "./Views/Home"
-import Router from './router'
+import NavBar from "./Components/Navigation/NavigationBarItem";
+import Router from "./router";
 
 function App() {
   return (
@@ -11,6 +10,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
