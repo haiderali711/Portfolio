@@ -6,10 +6,12 @@ import {
   Card,
   Jumbotron,
   Badge,
-  Modal
+  Modal,
 } from "react-bootstrap";
 
-export const LoginItem = () => {
+export const LoginItem = ({ signedIn ,onSignIn}) => {
+  console.log("signedIn in LoginItem : " + signedIn);
+
   return (
     <div>
       <Jumbotron fluid>
@@ -34,10 +36,15 @@ export const LoginItem = () => {
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
-                <Form.Group controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
                 <Modal.Footer>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    onClick={onSignIn}
+                    href="/"
+                  >
+                    Sign in with Google 
+                  </Button>
                   <Button variant="primary" type="submit">
                     Sign in
                   </Button>

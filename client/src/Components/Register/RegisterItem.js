@@ -58,11 +58,6 @@ export const RegisterItem = () => {
               <Form.Label>Address</Form.Label>
               <Form.Control placeholder="1234 Main St" />
             </Form.Group>
-
-            <Form.Group id="formGridCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-
             <Modal.Footer>
               <Button variant="primary" type="submit" href="/login">
                 Register
