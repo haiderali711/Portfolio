@@ -6,16 +6,17 @@ export default class App extends React.Component {
     super(props);
     this.state = { isSignedIn: false };
   }
-
-  state = { signedIn: null };
-  GoogleAuth = {};
   componentDidMount() {
+    this.initializeAuth();
+  }
+
+  initializeAuth() {
     window.gapi.load("auth2", () => {
       window.gapi.auth2
         .init({
           client_id:
             "950185757331-9c21c5bjk7efairfiimp9ekdsvqte2t8.apps.googleusercontent.com",
-          scope: "email",
+          scope: "email"
         })
         .then(() => {
           this.GoogleAuth = window.gapi.auth2.getAuthInstance();
@@ -28,6 +29,9 @@ export default class App extends React.Component {
         });
     });
   }
+
+  state = { signedIn: null };
+  GoogleAuth = {};
 
   changeIsSignedIn(value) {
     this.setState({ signedIn: value });
