@@ -1,22 +1,20 @@
-import React from "react";
+import React, {Component}from "react";
 import NavBar from "./Components/Navigation/NavigationBarItem";
 
-export default class App extends React.Component {
+export default class App extends Component {
   constructor(props) {
-    super(props);
-    this.state = { isSignedIn: false };
-  }
-  componentDidMount() {
-    this.initializeAuth();
+    super(props)
+    this.GoogleAuth = null
+    this.state = { signedIn : false }
   }
 
-  initializeAuth() {
+  componentDidMount() {
     window.gapi.load("auth2", () => {
       window.gapi.auth2
         .init({
           client_id:
             "950185757331-9c21c5bjk7efairfiimp9ekdsvqte2t8.apps.googleusercontent.com",
-          scope: "email"
+          scope: "email",
         })
         .then(() => {
           this.GoogleAuth = window.gapi.auth2.getAuthInstance();
@@ -30,15 +28,11 @@ export default class App extends React.Component {
     });
   }
 
-  state = { signedIn: null };
-  GoogleAuth = {};
-
   changeIsSignedIn(value) {
     this.setState({ signedIn: value });
   }
 
   onSignIn = () => {
-    console.log("im signing in from the child");
     this.GoogleAuth.signIn();
   };
   onSignOut = () => {
