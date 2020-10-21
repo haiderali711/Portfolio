@@ -34,7 +34,6 @@ export default class App extends Component {
 
   onSignIn = () => {
     this.GoogleAuth.signIn();
-    this.props.history.push("/");
   };
   onSignOut = () => {
     this.GoogleAuth.signOut();
