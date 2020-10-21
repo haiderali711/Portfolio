@@ -1,11 +1,11 @@
-import React, {Component}from "react";
+import React, { Component } from "react";
 import NavBar from "./Components/Navigation/NavigationBarItem";
 
 export default class App extends Component {
   constructor(props) {
-    super(props)
-    this.GoogleAuth = null
-    this.state = { signedIn : false }
+    super(props);
+    this.GoogleAuth = null;
+    this.state = { signedIn: false };
   }
 
   componentDidMount() {
@@ -34,6 +34,7 @@ export default class App extends Component {
 
   onSignIn = () => {
     this.GoogleAuth.signIn();
+    this.props.history.push("/");
   };
   onSignOut = () => {
     this.GoogleAuth.signOut();

@@ -5,6 +5,33 @@ import Router from "../../router";
 export const NavBar = ({ signedIn, onSignIn, onSignOut }) => {
   console.log("signedIn in navigationbar : " + signedIn);
 
+  React.returnSignOut = () => {
+    if (signedIn)
+      return (
+        <Nav.Link href="/login" onClick={onSignOut}>
+          Sign Out
+        </Nav.Link>
+      );
+    else return null;
+  };
+
+  React.returnLogin = () => {
+    if (signedIn)
+      return null
+    else return (
+      <Nav.Link href="/login">Login</Nav.Link>
+    );
+  }
+  
+  React.returnRegister = () => {
+    if (signedIn)
+      return null
+    else return (
+      <Nav.Link href="/register">Register</Nav.Link>
+    );
+  }
+  
+
   return (
     <div>
       <header>
@@ -14,9 +41,9 @@ export const NavBar = ({ signedIn, onSignIn, onSignOut }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link  href="/login" >Login</Nav.Link>
-              <Nav.Link href="/register">Register</Nav.Link>
-              <Nav.Link href="/login" onClick={onSignOut}>Sign Out</Nav.Link>
+              {React.returnLogin()}
+              {React.returnRegister()}
+              {React.returnSignOut()}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
