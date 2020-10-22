@@ -9,8 +9,14 @@ import {
   Modal,
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import axios from "axios";
 
 export const LoginItem = ({ signedIn, onSignIn }) => {
+  const submitLogin = () => {
+    var nameValue = document.getElementById("email").value;
+    console.log("i was cliecked  " + nameValue);
+  };
+
   console.log("signedIn in LoginItem : " + signedIn);
   if (signedIn) {
     return (
@@ -51,7 +57,11 @@ export const LoginItem = ({ signedIn, onSignIn }) => {
                         Sign in with Google
                       </Button>
                     </LinkContainer>
-                    <Button variant="primary" type="submit">
+                    <Button
+                      variant="primary"
+                      type="button"
+                      onClick={submitLogin}
+                    >
                       Sign in
                     </Button>
                   </Modal.Footer>
