@@ -1,4 +1,5 @@
 import { Navbar, Nav } from "react-bootstrap/";
+import { BrowserRouter ,} from "react-router-dom";
 import React from "react";
 import Router from "../../router";
 
@@ -16,42 +17,37 @@ export const NavBar = ({ signedIn, onSignIn, onSignOut }) => {
   };
 
   React.returnLogin = () => {
-    if (signedIn)
-      return null
-    else return (
-      <Nav.Link href="/login">Login</Nav.Link>
-    );
-  }
-  
+    if (signedIn) return null;
+    else return <Nav.Link href="/login">Login</Nav.Link>;
+  };
+
   React.returnRegister = () => {
-    if (signedIn)
-      return null
-    else return (
-      <Nav.Link href="/register">Register</Nav.Link>
-    );
-  }
-  
+    if (signedIn) return null;
+    else return <Nav.Link href="/register">Register</Nav.Link>;
+  };
 
   return (
-    <div>
-      <header>
-        <Navbar bg="dark" variant="dark" expand="lg">
-          <Navbar.Brand href="/">Portfolios</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              {React.returnLogin()}
-              {React.returnRegister()}
-              {React.returnSignOut()}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-      </header>
+    <BrowserRouter>
       <div>
-        <Router signedIn={signedIn} onSignIn={onSignIn} />
+        <header>
+          <Navbar bg="dark" variant="dark" expand="lg">
+            <Navbar.Brand href="/">Portfolios</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/">Home</Nav.Link>
+                {React.returnLogin()}
+                {React.returnRegister()}
+                {React.returnSignOut()}
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </header>
+        <div>
+          <Router signedIn={signedIn} onSignIn={onSignIn} />
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 };
 
