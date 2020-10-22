@@ -1,29 +1,39 @@
 import { Navbar, Nav } from "react-bootstrap/";
-import { BrowserRouter ,} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom/";
+import { LinkContainer } from "react-router-bootstrap";
 import React from "react";
 import Router from "../../router";
 
 export const NavBar = ({ signedIn, onSignIn, onSignOut }) => {
-  console.log("signedIn in navigationbar : " + signedIn);
-
+  console.log("checking "+signedIn)
   React.returnSignOut = () => {
     if (signedIn)
       return (
-        <Nav.Link href="/login" onClick={onSignOut}>
-          Sign Out
-        </Nav.Link>
+        <LinkContainer to="/login">
+          <Nav.Link onClick={onSignOut}>Sign Out</Nav.Link>
+        </LinkContainer>
       );
     else return null;
   };
 
   React.returnLogin = () => {
     if (signedIn) return null;
-    else return <Nav.Link href="/login">Login</Nav.Link>;
+    else
+      return (
+        <LinkContainer to="/login">
+          <Nav.Link>Login</Nav.Link>
+        </LinkContainer>
+      );
   };
 
   React.returnRegister = () => {
     if (signedIn) return null;
-    else return <Nav.Link href="/register">Register</Nav.Link>;
+    else
+      return (
+        <LinkContainer to="/register">
+          <Nav.Link>Register</Nav.Link>
+        </LinkContainer>
+      );
   };
 
   return (
@@ -31,11 +41,15 @@ export const NavBar = ({ signedIn, onSignIn, onSignOut }) => {
       <div>
         <header>
           <Navbar bg="dark" variant="dark" expand="lg">
-            <Navbar.Brand href="/">Portfolios</Navbar.Brand>
+            <LinkContainer to="/">
+              <Navbar.Brand href="/">Portfolios</Navbar.Brand>
+            </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link href="/">Home</Nav.Link>
+                <LinkContainer to="/">
+                  <Nav.Link>Home</Nav.Link>
+                </LinkContainer>
                 {React.returnLogin()}
                 {React.returnRegister()}
                 {React.returnSignOut()}
@@ -43,9 +57,9 @@ export const NavBar = ({ signedIn, onSignIn, onSignOut }) => {
             </Navbar.Collapse>
           </Navbar>
         </header>
-        <div>
+        <section>
           <Router signedIn={signedIn} onSignIn={onSignIn} />
-        </div>
+        </section>
       </div>
     </BrowserRouter>
   );

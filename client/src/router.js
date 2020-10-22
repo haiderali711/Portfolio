@@ -4,8 +4,7 @@ import { Route } from "react-router-dom";
 import LoginItem from "./Components/Login/LoginItem";
 import RegisterItem from "./Components/Register/RegisterItem";
 
-export default function router({ signedIn, onSignIn, onSignOut }) {
-  console.log("signedIn in navigationbar : " + signedIn);
+export default function router({ signedIn, onSignIn }) {
 
   return (
     <div>

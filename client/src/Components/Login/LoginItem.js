@@ -8,6 +8,7 @@ import {
   Badge,
   Modal,
 } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 export const LoginItem = ({ signedIn, onSignIn }) => {
   console.log("signedIn in LoginItem : " + signedIn);
@@ -45,9 +46,11 @@ export const LoginItem = ({ signedIn, onSignIn }) => {
                     <Form.Control type="password" placeholder="Password" />
                   </Form.Group>
                   <Modal.Footer>
-                    <Button variant="primary" onClick={onSignIn}>
-                      Sign in with Google
-                    </Button>
+                    <LinkContainer to="/">
+                      <Button variant="primary" onClick={onSignIn}>
+                        Sign in with Google
+                      </Button>
+                    </LinkContainer>
                     <Button variant="primary" type="submit">
                       Sign in
                     </Button>
