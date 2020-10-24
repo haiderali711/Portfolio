@@ -9,7 +9,7 @@ import {
   Modal,
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import axios from "axios";
+// import axios from "axios";
 
 export const LoginItem = ({ signedIn, onSignIn }) => {
   const submitLogin = () => {
@@ -17,7 +17,6 @@ export const LoginItem = ({ signedIn, onSignIn }) => {
     console.log("i was cliecked  " + nameValue);
   };
 
-  console.log("signedIn in LoginItem : " + signedIn);
   if (signedIn) {
     return (
       <Jumbotron fluid>

@@ -23,7 +23,7 @@ app.use(cors());
 
 const mongoURI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/portfolio";
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // Connect to MongoDB
 mongoose.connect(
@@ -40,6 +40,7 @@ mongoose.connect(
 );
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
+
 
 app.get("/api", (req, res) => {
   res.json({ message: "Welcome to your DIT341 backend ExpressJS project!" });
@@ -78,9 +79,9 @@ app.use((err, req, res) => {
   res.json(err_res);
 });
 
-app.listen(PORT, (err) => {
+app.listen(port, (err) => {
   if (err) throw err;
-  console.log(`Express server listening on port ${PORT}, in ${env} mode`);
-  console.log(`Backend: http://localhost:${PORT}/api/`);
-  console.log(`Frontend (production): http://localhost:${PORT}/`);
+  console.log(`Express server listening on port ${port}, in ${env} mode`);
+  console.log(`Backend: http://localhost:${port}/api/`);
+  console.log(`Frontend (production): http://localhost:${port}/`);
 });
