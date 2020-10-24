@@ -7,8 +7,11 @@ const userSchema = new Schema({
   email: { type: String },
   username: { type: String },
   password: { type: String },
+  city: { type: String },
+  country: { type: String },
+  address: { type: String },
   age: { type: Number, default: 16 },
-  publish: { type: Boolean, default: true },
+  publish: { type: Boolean, default: true }
 });
 
 module.exports = mongoose.model("User", userSchema);

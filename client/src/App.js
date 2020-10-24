@@ -14,7 +14,7 @@ export default class App extends Component {
         .init({
           client_id:
             "950185757331-9c21c5bjk7efairfiimp9ekdsvqte2t8.apps.googleusercontent.com",
-          scope: "email",
+          scope: "email"
         })
         .then(() => {
           this.GoogleAuth = window.gapi.auth2.getAuthInstance();
@@ -28,9 +28,9 @@ export default class App extends Component {
     });
   }
 
-  changeIsSignedIn(value) {
+  changeIsSignedIn = value => {
     this.setState({ signedIn: value });
-  }
+  };
 
   onSignIn = () => {
     this.GoogleAuth.signIn();
@@ -46,6 +46,7 @@ export default class App extends Component {
           signedIn={this.state.signedIn}
           onSignIn={this.onSignIn}
           onSignOut={this.onSignOut}
+          changeIsSignedIn={this.changeIsSignedIn}
         />
       </div>
     );

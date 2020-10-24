@@ -6,15 +6,31 @@ import {
   Card,
   Jumbotron,
   Badge,
-  Modal,
+  Modal
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-// import axios from "axios";
+import axios from "axios";
 
-export const LoginItem = ({ signedIn, onSignIn }) => {
+export const LoginItem = ({ signedIn, onSignIn, changeIsSignedIn }) => {
+  var api = "http://localhost:3001/api";
+
   const submitLogin = () => {
-    var nameValue = document.getElementById("email").value;
-    console.log("i was cliecked  " + nameValue);
+    var emailV = document.getElementById("email").value;
+    var passV = document.getElementById("password").value;
+    axios
+      .post(api + "/users/login", { email: emailV, password: passV })
+      .then(res => {
+        var authenticated = res.data.authenticated;
+        changeIsSignedIn(authenticated);
+        console.log(res.data);
+      })
+      .catch(error => {
+        var res = error.response.data;
+        var code = error.response.status;
+        console.log(code);
+        var authenticated = res.authenticated;
+        changeIsSignedIn(authenticated);
+      });
   };
 
   if (signedIn) {

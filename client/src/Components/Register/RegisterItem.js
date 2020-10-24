@@ -31,14 +31,26 @@ export const RegisterItem = () => {
             </Form.Row>
 
             <Form.Row>
-              <Form.Group as={Col} controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+              <Form.Group as={Col} controlId="username">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="Enter your Username" />
               </Form.Group>
 
               <Form.Group as={Col} controlId="password">
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col} controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="Enter your email" />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="age">
+                <Form.Label>Age</Form.Label>
+                <Form.Control type="number" placeholder="Your Age" />
               </Form.Group>
             </Form.Row>
 

@@ -4,8 +4,8 @@ import { LinkContainer } from "react-router-bootstrap";
 import React from "react";
 import Router from "../../router";
 
-export const NavBar = ({ signedIn, onSignIn, onSignOut }) => {
-  console.log("checking "+signedIn)
+export const NavBar = ({ signedIn, onSignIn, onSignOut, changeIsSignedIn }) => {
+  console.log("checking " + signedIn);
   React.returnSignOut = () => {
     if (signedIn)
       return (
@@ -58,7 +58,11 @@ export const NavBar = ({ signedIn, onSignIn, onSignOut }) => {
           </Navbar>
         </header>
         <section>
-          <Router signedIn={signedIn} onSignIn={onSignIn} />
+          <Router
+            signedIn={signedIn}
+            onSignIn={onSignIn}
+            changeIsSignedIn={changeIsSignedIn}
+          />
         </section>
       </div>
     </BrowserRouter>

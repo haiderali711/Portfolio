@@ -5,7 +5,7 @@ const UserController = require("../controllers/user");
 
 router.post("/", UserController.createUser);
 
-router.get("/login", UserController.checkAuthentication);
+router.post("/login", UserController.checkAuthentication);
 
 router.get("/:id/courses", UserController.findCourseByUserId);
 
@@ -13,7 +13,7 @@ router.get("/:id/degrees", UserController.findDegreeByUserId);
 
 router.get("/:id/projects", UserController.findProjectsByUserId);
 
-router.get("/:id/skills",UserController.findSkillsByUserId);
+router.get("/:id/skills", UserController.findSkillsByUserId);
 
 router.patch("/:id", UserController.updateWithId);
 
