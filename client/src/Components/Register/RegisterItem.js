@@ -1,15 +1,54 @@
 import React from "react";
 import "../Register/RegisterItem.css";
+import axios from "axios";
 import {
   Form,
   Button,
   Col,
   Container,
   Jumbotron,
-  Modal
+  Modal,
 } from "react-bootstrap";
 
 export const RegisterItem = () => {
+  var api = "http://localhost:3001/api";
+
+  const registerAxios = () => {
+    var name = document.getElementById("name").value;
+    var surname = document.getElementById("surname").value;
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var email = document.getElementById("email").value;
+    var age = document.getElementById("age").value;
+    var city = document.getElementById("city").value;
+    var country = document.getElementById("country").value;
+    var address = document.getElementById("address").value;
+
+    var registerObject = {
+      name: name,
+      surname: surname,
+      username: username,
+      password: password,
+      email: email,
+      age: age,
+      city: city,
+      country: country,
+      address: address,
+    };
+
+    axios
+      .post(api + "/users/", registerObject)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(error => {
+        var res = error.response.data;
+        var code = error.response.status;
+        console.log(code + res);
+      });
+
+  };
+
   return (
     <div>
       <Jumbotron fluid>
@@ -71,7 +110,7 @@ export const RegisterItem = () => {
               <Form.Control placeholder="1234 Main St" />
             </Form.Group>
             <Modal.Footer>
-              <Button variant="primary" type="submit" href="/login">
+              <Button variant="primary" type="button" href="/login" onClick={registerAxios}>
                 Register
               </Button>
             </Modal.Footer>

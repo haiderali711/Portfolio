@@ -5,12 +5,11 @@ import React from "react";
 import Router from "../../router";
 
 export const NavBar = ({ signedIn, onSignIn, onSignOut, changeIsSignedIn }) => {
-  console.log("checking " + signedIn);
   React.returnSignOut = () => {
     if (signedIn)
       return (
         <LinkContainer to="/login">
-          <Nav.Link onClick={onSignOut}>Sign Out</Nav.Link>
+          <Nav.Link onClick={onSignOut}> Sign Out</Nav.Link>
         </LinkContainer>
       );
     else return null;

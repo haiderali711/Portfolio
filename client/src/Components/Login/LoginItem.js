@@ -1,4 +1,7 @@
 import React from "react";
+import { LinkContainer } from "react-router-bootstrap";
+import axios from "axios";
+import { setCookies } from "../../Sessions/CookiesController"
 import {
   Form,
   Button,
@@ -8,8 +11,6 @@ import {
   Badge,
   Modal
 } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import axios from "axios";
 
 export const LoginItem = ({ signedIn, onSignIn, changeIsSignedIn }) => {
   var api = "http://localhost:3001/api";
@@ -21,6 +22,9 @@ export const LoginItem = ({ signedIn, onSignIn, changeIsSignedIn }) => {
       .post(api + "/users/login", { email: emailV, password: passV })
       .then(res => {
         var authenticated = res.data.authenticated;
+        if (authenticated){
+          setCookies(res,1)
+        }
         changeIsSignedIn(authenticated);
         console.log(res.data);
       })
@@ -37,7 +41,7 @@ export const LoginItem = ({ signedIn, onSignIn, changeIsSignedIn }) => {
     return (
       <Jumbotron fluid>
         <Container>
-          <h1>The user is Already Logged In </h1>
+          <h1>The user is Logged In </h1>
         </Container>
       </Jumbotron>
     );

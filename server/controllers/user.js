@@ -65,13 +65,7 @@ const checkAuthentication = (req, res, next) => {
       res.status(404).json({ authenticated: false });
     } else {
       res.status(200).json({
-        age: foundUser.age,
-        publish: foundUser.publish,
         id: foundUser._id,
-        name: foundUser.name,
-        surname: foundUser.surname,
-        email: foundUser.email,
-        username: foundUser.username,
         authenticated: true
       });
     }
