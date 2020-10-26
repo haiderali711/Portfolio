@@ -7,6 +7,8 @@ router.post("/", UserController.createUser);
 
 router.post("/login", UserController.checkAuthentication);
 
+router.get("/:id", UserController.findUserbyID);
+
 router.get("/:id/courses", UserController.findCourseByUserId);
 
 router.get("/:id/degrees", UserController.findDegreeByUserId);

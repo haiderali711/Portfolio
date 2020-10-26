@@ -35,6 +35,16 @@ export const NavBar = ({ signedIn, onSignIn, onSignOut, changeIsSignedIn }) => {
       );
   };
 
+  React.returnProfile = () => {
+    if (signedIn)
+      return (
+        <LinkContainer to="/profile">
+          <Nav.Link>Profile</Nav.Link>
+        </LinkContainer>
+      );
+    else return null;
+  };
+
   return (
     <BrowserRouter>
       <div>
@@ -49,6 +59,7 @@ export const NavBar = ({ signedIn, onSignIn, onSignOut, changeIsSignedIn }) => {
                 <LinkContainer to="/">
                   <Nav.Link>Home</Nav.Link>
                 </LinkContainer>
+                {React.returnProfile()}
                 {React.returnLogin()}
                 {React.returnRegister()}
                 {React.returnSignOut()}

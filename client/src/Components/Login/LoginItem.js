@@ -1,7 +1,7 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import axios from "axios";
-import { setCookies } from "../../Sessions/CookiesController"
+import { setCookies } from "../../Sessions/CookiesController";
 import {
   Form,
   Button,
@@ -22,8 +22,8 @@ export const LoginItem = ({ signedIn, onSignIn, changeIsSignedIn }) => {
       .post(api + "/users/login", { email: emailV, password: passV })
       .then(res => {
         var authenticated = res.data.authenticated;
-        if (authenticated){
-          setCookies(res,1)
+        if (authenticated) {
+          setCookies(res, 1);
         }
         changeIsSignedIn(authenticated);
         console.log(res.data);
@@ -76,13 +76,15 @@ export const LoginItem = ({ signedIn, onSignIn, changeIsSignedIn }) => {
                         Sign in with Google
                       </Button>
                     </LinkContainer>
-                    <Button
-                      variant="primary"
-                      type="button"
-                      onClick={submitLogin}
-                    >
-                      Sign in
-                    </Button>
+                    <LinkContainer to="/">
+                      <Button
+                        variant="primary"
+                        type="button"
+                        onClick={submitLogin}
+                      >
+                        Sign in
+                      </Button>
+                    </LinkContainer>
                   </Modal.Footer>
                 </Form>
               </Card.Body>

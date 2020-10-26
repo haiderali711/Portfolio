@@ -8,9 +8,13 @@ export const Home = () => {
     <Jumbotron fluid>
       <Container>
         <h1>My PortFolio Website</h1>
+        <h3>
+          We are using React.js to develop this website and Its currently under
+          development.
+        </h3>
         <p>
-          This is a modified jumbotron that occupies the entire horizontal space
-          of its parent.
+          The main purpose of this website is to provide users a platform to
+          create private portfolios.
         </p>
       </Container>
     </Jumbotron>

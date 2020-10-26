@@ -72,6 +72,19 @@ const checkAuthentication = (req, res, next) => {
   });
 };
 
+const findUserbyID = (req, res, next) => {
+  let id = req.params.id;
+
+  User.findById({ _id: id }, (err, foundUser) => {
+    if (err) throw 404;
+    if (foundUser === null) {
+      res.status(404).json({ message: "notfound" });
+    } else {
+      res.status(200).json(foundUser);
+    }
+  });
+};
+
 const findCourseByUserId = (req, res) => {
   const userId = req.params.id;
 
@@ -158,5 +171,6 @@ module.exports = {
   findCourseByUserId,
   findDegreeByUserId,
   findProjectsByUserId,
-  findSkillsByUserId
+  findSkillsByUserId,
+  findUserbyID
 };
