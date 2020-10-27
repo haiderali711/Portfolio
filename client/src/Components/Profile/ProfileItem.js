@@ -3,8 +3,7 @@ import { Card, Tab, Badge, Modal, ListGroup, Col, Row } from "react-bootstrap/";
 import "./ProfileItem.css";
 import NameUpdateItem from "./NameUpdateItem";
 
-export default function Profile({ info }) {
-  var patchUser = body => {};
+export default function Profile({ info, updateInfo }) {
   return (
     <Tab.Container id="list-group-tabs-example" defaultActiveKey="name">
       <Row>
@@ -22,7 +21,7 @@ export default function Profile({ info }) {
               <div className="list-div">
                 <ListGroup>
                   <ListGroup.Item action href="#name">
-                    {info.name} {info.surname}
+                    {info.name + " " + info.surname}
                   </ListGroup.Item>
                   <ListGroup.Item action href="#email">
                     {info.email}
@@ -52,8 +51,9 @@ export default function Profile({ info }) {
             <Tab.Pane eventKey="#name">
               <NameUpdateItem
                 user_name={info.name}
-                user_surname={info.user_name}
-                patchUser={patchUser}
+                user_surname={info.surname}
+                updateInfo={updateInfo}
+                oldInfo={info}
               />
             </Tab.Pane>
             <Tab.Pane eventKey="#email">

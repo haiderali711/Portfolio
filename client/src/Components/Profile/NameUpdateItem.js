@@ -1,15 +1,66 @@
-import React from "react";
-import { Form, Button, Col, Container, Modal, Card } from "react-bootstrap";
-export default function NameUpdateItem({ user_name, user_surname, patchUser }) {
+import React, { useState } from "react";
+import {
+  Form,
+  Button,
+  Col,
+  Container,
+  Modal,
+  Card,
+  Alert,
+} from "react-bootstrap";
+import axios from "axios";
+import { getCookieValue } from "../../Sessions/CookiesController";
+
+export default function NameUpdateItem(props) {
+  const [show, setShow] = useState(false);
+  const [showSuccess, setSuccess] = useState(false);
+
   const updateName = () => {
     var nameU = document.getElementById("update-name").value;
     var surnameU = document.getElementById("update-surname").value;
+    var api = "http://localhost:3001/api";
+    if (nameU === "" || surnameU === "") {
+      setShow(true);
+    } else {
+      var body = {
+        name: nameU,
+        surname: surnameU,
+      };
 
-    var body = {
-      name: nameU,
-      surname: surnameU
-    };
-    patchUser(body);
+      axios
+        .patch(api + "/users/" + getCookieValue("id"), body)
+        .then((response) => {
+          if (response.status === 200) {
+            var newInfo = props.oldInfo;
+            setSuccess(true);
+            newInfo.name = body.name;
+            newInfo.surname = body.surname;
+            props.updateInfo(newInfo);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  };
+
+  const returnDoneALert = () => {
+    if (showSuccess) {
+      return (
+        <Alert variant="success" onClose={() => setSuccess(false)} dismissible>
+          The Update was successful!
+        </Alert>
+      );
+    } else return null;
+  };
+  const returnErrorALert = () => {
+    if (show) {
+      return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+          Both Name and Surname has to be written!
+        </Alert>
+      );
+    } else return null;
   };
 
   return (
@@ -24,12 +75,13 @@ export default function NameUpdateItem({ user_name, user_surname, patchUser }) {
               <Form.Row>
                 <Form.Group as={Col} controlId="update-name">
                   <Form.Label>Name</Form.Label>
-                  <Form.Control type="text" placeholder="Enter new name" />
+                  <Form.Control type="text" placeholder={props.user_name} />
                 </Form.Group>
-
+              </Form.Row>
+              <Form.Row>
                 <Form.Group as={Col} controlId="update-surname">
                   <Form.Label>Surname</Form.Label>
-                  <Form.Control type="text" placeholder="Enter new surname" />
+                  <Form.Control type="text" placeholder={props.user_surname} />
                 </Form.Group>
               </Form.Row>
 
@@ -42,6 +94,8 @@ export default function NameUpdateItem({ user_name, user_surname, patchUser }) {
           </Card.Body>
         </Card>
       </Container>
+      {returnErrorALert()}
+      {returnDoneALert()}
     </div>
   );
 }
