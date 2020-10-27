@@ -4,7 +4,13 @@ import { LinkContainer } from "react-router-bootstrap";
 import React from "react";
 import Router from "../../router";
 
-export const NavBar = ({ signedIn, onSignIn, onSignOut, changeIsSignedIn }) => {
+export const NavBar = ({
+  signedIn,
+  onSignIn,
+  onSignOut,
+  changeIsSignedIn,
+  api,
+}) => {
   React.returnSignOut = () => {
     if (signedIn)
       return (
@@ -72,6 +78,7 @@ export const NavBar = ({ signedIn, onSignIn, onSignOut, changeIsSignedIn }) => {
             signedIn={signedIn}
             onSignIn={onSignIn}
             changeIsSignedIn={changeIsSignedIn}
+            api={api}
           />
         </section>
       </div>

@@ -10,9 +10,7 @@ import {
   Modal,
 } from "react-bootstrap";
 
-export const RegisterItem = () => {
-  var api = "http://localhost:3001/api";
-
+export const RegisterItem = (props) => {
   const registerAxios = () => {
     var name = document.getElementById("name").value;
     var surname = document.getElementById("surname").value;
@@ -35,18 +33,16 @@ export const RegisterItem = () => {
       country: country,
       address: address,
     };
-
     axios
-      .post(api + "/users/", registerObject)
-      .then(res => {
+      .post(props.api + "/users/", registerObject)
+      .then((res) => {
         console.log(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         var res = error.response.data;
         var code = error.response.status;
         console.log(code + res);
       });
-
   };
 
   return (
@@ -110,7 +106,12 @@ export const RegisterItem = () => {
               <Form.Control placeholder="1234 Main St" />
             </Form.Group>
             <Modal.Footer>
-              <Button variant="primary" type="button" href="/login" onClick={registerAxios}>
+              <Button
+                variant="primary"
+                type="button"
+                href="/login"
+                onClick={registerAxios}
+              >
                 Register
               </Button>
             </Modal.Footer>

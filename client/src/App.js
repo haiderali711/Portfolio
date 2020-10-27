@@ -11,6 +11,7 @@ export default class App extends Component {
     super(props);
     this.GoogleAuth = null;
     this.state = { signedIn: false };
+    this.api = "http://localhost:3001/api";
   }
 
   componentDidMount() {
@@ -48,7 +49,7 @@ export default class App extends Component {
       setCookies(JSON.parse(getCookieObj()), -1);
       this.changeIsSignedIn(false);
     }
-    
+
     //this.GoogleAuth.signOut();
   };
 
@@ -60,6 +61,7 @@ export default class App extends Component {
           onSignIn={this.onSignIn}
           onSignOut={this.onSignOut}
           changeIsSignedIn={this.changeIsSignedIn}
+          api={this.api}
         />
       </div>
     );

@@ -8,14 +8,13 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = { info: {}, edit: false };
-    this.api = "http://localhost:3001/api";
   }
 
   componentDidMount() {
     let id = getCookieValue("id");
     if (id !== null) {
       axios
-        .get(this.api + "/users/" + id)
+        .get(this.props.api + "/users/" + id)
         .then((res) => {
           this.setState({ info: res.data });
         })
