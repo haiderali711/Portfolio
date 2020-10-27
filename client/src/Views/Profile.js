@@ -16,10 +16,10 @@ export default class Profile extends Component {
     if (id !== null) {
       axios
         .get(this.api + "/users/" + id)
-        .then(res => {
+        .then((res) => {
           this.setState({ info: res.data });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     } else {
@@ -27,7 +27,7 @@ export default class Profile extends Component {
     }
   }
 
-  updateInfo = infoObject => {
+  updateInfo = (infoObject) => {
     this.setState({ info: infoObject });
   };
 
@@ -43,14 +43,14 @@ export default class Profile extends Component {
       );
     } else {
       return (
-        <Jumbotron fluid>
-          <Container>
+        <Container>
+          <Jumbotron fluid>
             <h1>
               Error 404 : This Page is not accessible if the user is not logged
               in!
             </h1>
-          </Container>
-        </Jumbotron>
+          </Jumbotron>
+        </Container>
       );
     }
   }

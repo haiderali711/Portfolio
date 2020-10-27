@@ -11,39 +11,56 @@ import {
 import axios from "axios";
 import { getCookieValue } from "../../Sessions/CookiesController";
 
-export default function NameUpdateItem(props) {
+export default function ProfileUpdateItem(props) {
   const [show, setShow] = useState(false);
   const [showSuccess, setSuccess] = useState(false);
 
   const updateName = () => {
-    var nameU = document.getElementById("update-name").value;
-    var surnameU = document.getElementById("update-surname").value;
+    var DOMValue = document.getElementById(`${props.controlID}`).value;
     var api = "http://localhost:3001/api";
-    if (nameU === "" || surnameU === "") {
+    if (DOMValue === "") {
       setShow(true);
     } else {
-      var body = {
-        name: nameU,
-        surname: surnameU,
-      };
-
+      var body = `{"` + props.itemToUpdate + `" : "` + DOMValue + `"}`;
+      body = JSON.parse(body);
       axios
         .patch(api + "/users/" + getCookieValue("id"), body)
         .then((response) => {
           if (response.status === 200) {
-            document.getElementById("update-name").value = "";
-            document.getElementById("update-surname").value = "";
             var newInfo = props.oldInfo;
             setSuccess(true);
-            newInfo.name = body.name;
-            newInfo.surname = body.surname;
+            newInfo = getRightUpdateBody(body, newInfo);
             props.updateInfo(newInfo);
+            document.getElementById(`${props.controlID}`).value = "";
           }
         })
         .catch((error) => {
           alert(error);
         });
     }
+  };
+
+  const getRightUpdateBody = (body, newInfo) => {
+    if (body.email !== undefined) {
+      newInfo.email = body.email;
+      return newInfo;
+    } else if (body.username !== undefined) {
+      newInfo.username = body.username;
+      return newInfo;
+    } else if (body.password !== undefined) {
+      newInfo.password = body.password;
+      return newInfo;
+    } else if (body.address !== undefined) {
+      newInfo.address = body.address;
+      return newInfo;
+    } else if (body.city !== undefined) {
+      newInfo.city = body.city;
+      return newInfo;
+    } else if (body.country !== undefined) {
+      newInfo.country = body.country;
+      return newInfo;
+    }
+    return null;
   };
 
   const returnDoneALert = () => {
@@ -59,7 +76,7 @@ export default function NameUpdateItem(props) {
     if (show) {
       return (
         <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-          Both Name and Surname has to be written!
+          The Value is empty!
         </Alert>
       );
     } else return null;
@@ -75,15 +92,12 @@ export default function NameUpdateItem(props) {
             </Modal.Header>
             <Form className="registerForm">
               <Form.Row>
-                <Form.Group as={Col} controlId="update-name">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control type="text" placeholder={props.user_name} />
-                </Form.Group>
-              </Form.Row>
-              <Form.Row>
-                <Form.Group as={Col} controlId="update-surname">
-                  <Form.Label>Surname</Form.Label>
-                  <Form.Control type="text" placeholder={props.user_surname} />
+                <Form.Group as={Col} controlId={props.controlID}>
+                  <Form.Label>{props.formLabel}</Form.Label>
+                  <Form.Control
+                    type={props.inputType}
+                    placeholder="Enter the new Value here"
+                  />
                 </Form.Group>
               </Form.Row>
 

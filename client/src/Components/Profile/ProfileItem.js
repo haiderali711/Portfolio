@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Tab, Badge, Modal, ListGroup, Col, Row } from "react-bootstrap/";
-import "./ProfileItem.css";
 import NameUpdateItem from "./NameUpdateItem";
+import ProfileUpdateItem from "./ProfileUpdateItem";
 
 export default function Profile({ info, updateInfo }) {
   return (
@@ -18,9 +18,13 @@ export default function Profile({ info, updateInfo }) {
                 </Card.Title>
               </Modal.Header>
               {/* <Card.Text></Card.Text> */}
-              <div className="list-div">
+              <div>
                 <ListGroup>
-                  <ListGroup.Item action href="#name">
+                  <ListGroup.Item
+                    className="name-surname-list"
+                    action
+                    href="#name"
+                  >
                     {info.name + " " + info.surname}
                   </ListGroup.Item>
                   <ListGroup.Item action href="#email">
@@ -57,7 +61,64 @@ export default function Profile({ info, updateInfo }) {
               />
             </Tab.Pane>
             <Tab.Pane eventKey="#email">
-              <p>hello my email </p>
+              <ProfileUpdateItem
+                oldInfo={info}
+                itemToUpdate={"email"}
+                inputType={"email"}
+                controlID={"update-email"}
+                formLabel={"Email"}
+                updateInfo={updateInfo}
+              />
+            </Tab.Pane>
+            <Tab.Pane eventKey="#username">
+              <ProfileUpdateItem
+                oldInfo={info}
+                itemToUpdate={"username"}
+                inputType={"text"}
+                controlID={"update-username"}
+                formLabel={"Username"}
+                updateInfo={updateInfo}
+              />
+            </Tab.Pane>
+            <Tab.Pane eventKey="#password">
+              <ProfileUpdateItem
+                oldInfo={info}
+                itemToUpdate={"password"}
+                inputType={"password"}
+                controlID={"update-password"}
+                formLabel={"Password"}
+                updateInfo={updateInfo}
+              />
+            </Tab.Pane>
+            <Tab.Pane eventKey="#address">
+              <ProfileUpdateItem
+                oldInfo={info}
+                itemToUpdate={"address"}
+                inputType={"text"}
+                controlID={"update-address"}
+                formLabel={"Address"}
+                updateInfo={updateInfo}
+              />
+            </Tab.Pane>
+            <Tab.Pane eventKey="#city">
+              <ProfileUpdateItem
+                oldInfo={info}
+                itemToUpdate={"city"}
+                inputType={"text"}
+                controlID={"update-city"}
+                formLabel={"City"}
+                updateInfo={updateInfo}
+              />
+            </Tab.Pane>
+            <Tab.Pane eventKey="#country">
+              <ProfileUpdateItem
+                oldInfo={info}
+                itemToUpdate={"country"}
+                inputType={"text"}
+                controlID={"update-country"}
+                formLabel={"Country"}
+                updateInfo={updateInfo}
+              />
             </Tab.Pane>
           </Tab.Content>
         </Col>
