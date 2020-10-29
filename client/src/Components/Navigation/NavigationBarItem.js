@@ -51,6 +51,16 @@ export const NavBar = ({
     else return null;
   };
 
+  React.returnProtfolio = () => {
+    if (signedIn)
+      return (
+        <LinkContainer to="/portfolio/skeleton">
+          <Nav.Link>Portfolio</Nav.Link>
+        </LinkContainer>
+      );
+    else return null;
+  };
+
   return (
     <BrowserRouter>
       <div>
@@ -66,6 +76,7 @@ export const NavBar = ({
                   <Nav.Link>Home</Nav.Link>
                 </LinkContainer>
                 {React.returnProfile()}
+                {React.returnProtfolio()}
                 {React.returnLogin()}
                 {React.returnRegister()}
                 {React.returnSignOut()}
