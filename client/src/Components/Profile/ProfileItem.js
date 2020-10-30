@@ -12,12 +12,12 @@ export default function Profile({ info, updateInfo }) {
     password: false,
     address: false,
     city: false,
-    country: false
+    country: false,
   };
 
   const [currentValues, newValues] = useState(originalObject);
 
-  var updateStatesAccordingly = item => {
+  var updateStatesAccordingly = (item) => {
     var temporaryObject = originalObject;
 
     if (item === 1) {
