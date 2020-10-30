@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card, Badge, Modal, ListGroup, Col, Row } from "react-bootstrap/";
+import { CSSTransition } from "react-transition-group";
 import NameUpdateItem from "./NameUpdateItem";
 import ProfileUpdateItem from "./ProfileUpdateItem";
 import "./ProfileItem.css";
@@ -45,82 +46,113 @@ export default function Profile({ info, updateInfo }) {
   };
 
   var renderUpdateItems = () => {
-    if (currentValues.name === true)
-      return (
-        <NameUpdateItem
-          user_name={info.name}
-          user_surname={info.surname}
-          updateInfo={updateInfo}
-          oldInfo={info}
-        />
-      );
-    else if (currentValues.email === true)
-      return (
-        <ProfileUpdateItem
-          oldInfo={info}
-          itemToUpdate={"email"}
-          inputType={"email"}
-          controlID={"update-email"}
-          formLabel={"Email"}
-          updateInfo={updateInfo}
-        />
-      );
-    else if (currentValues.username === true)
-      return (
-        <ProfileUpdateItem
-          oldInfo={info}
-          itemToUpdate={"username"}
-          inputType={"text"}
-          controlID={"update-username"}
-          formLabel={"Username"}
-          updateInfo={updateInfo}
-        />
-      );
-    else if (currentValues.password === true)
-      return (
-        <ProfileUpdateItem
-          oldInfo={info}
-          itemToUpdate={"password"}
-          inputType={"password"}
-          controlID={"update-password"}
-          formLabel={"Password"}
-          updateInfo={updateInfo}
-        />
-      );
-    else if (currentValues.address === true)
-      return (
-        <ProfileUpdateItem
-          oldInfo={info}
-          itemToUpdate={"address"}
-          inputType={"text"}
-          controlID={"update-address"}
-          formLabel={"Address"}
-          updateInfo={updateInfo}
-        />
-      );
-    else if (currentValues.city === true)
-      return (
-        <ProfileUpdateItem
-          oldInfo={info}
-          itemToUpdate={"city"}
-          inputType={"text"}
-          controlID={"update-city"}
-          formLabel={"City"}
-          updateInfo={updateInfo}
-        />
-      );
-    else if (currentValues.country === true)
-      return (
-        <ProfileUpdateItem
-          oldInfo={info}
-          itemToUpdate={"country"}
-          inputType={"text"}
-          controlID={"update-country"}
-          formLabel={"Country"}
-          updateInfo={updateInfo}
-        />
-      );
-    else return null;
+    return (
+      <div>
+        <CSSTransition
+          in={currentValues.name === true}
+          timeout={300}
+          classNames="profs"
+          unmountOnExit
+        >
+          <NameUpdateItem
+            user_name={info.name}
+            user_surname={info.surname}
+            updateInfo={updateInfo}
+            oldInfo={info}
+          />
+        </CSSTransition>
+        <CSSTransition
+          in={currentValues.email === true}
+          timeout={300}
+          classNames="profs"
+          unmountOnExit
+        >
+          <ProfileUpdateItem
+            oldInfo={info}
+            itemToUpdate={"email"}
+            inputType={"email"}
+            controlID={"update-email"}
+            formLabel={"Email"}
+            updateInfo={updateInfo}
+          />
+        </CSSTransition>
+        <CSSTransition
+          in={currentValues.username === true}
+          timeout={300}
+          classNames="profs"
+          unmountOnExit
+        >
+          <ProfileUpdateItem
+            oldInfo={info}
+            itemToUpdate={"username"}
+            inputType={"text"}
+            controlID={"update-username"}
+            formLabel={"Username"}
+            updateInfo={updateInfo}
+          />
+        </CSSTransition>
+        <CSSTransition
+          in={currentValues.password === true}
+          timeout={300}
+          classNames="profs"
+          unmountOnExit
+        >
+          <ProfileUpdateItem
+            oldInfo={info}
+            itemToUpdate={"password"}
+            inputType={"password"}
+            controlID={"update-password"}
+            formLabel={"Password"}
+            updateInfo={updateInfo}
+          />
+        </CSSTransition>
+        <CSSTransition
+          in={currentValues.address === true}
+          timeout={300}
+          classNames="profs"
+          unmountOnExit
+        >
+          <ProfileUpdateItem
+            oldInfo={info}
+            itemToUpdate={"address"}
+            inputType={"text"}
+            controlID={"update-address"}
+            formLabel={"Address"}
+            updateInfo={updateInfo}
+          />
+        </CSSTransition>
+        <CSSTransition
+          in={currentValues.city === true}
+          timeout={300}
+          classNames="profs"
+          unmountOnExit
+        >
+          <ProfileUpdateItem
+            oldInfo={info}
+            itemToUpdate={"city"}
+            inputType={"text"}
+            controlID={"update-city"}
+            formLabel={"City"}
+            updateInfo={updateInfo}
+          />
+        </CSSTransition>
+        <CSSTransition
+          in={currentValues.country === true}
+          timeout={300}
+          classNames="profs"
+          unmountOnExit
+        >
+          <ProfileUpdateItem
+            oldInfo={info}
+            itemToUpdate={"country"}
+            inputType={"text"}
+            controlID={"update-country"}
+            formLabel={"Country"}
+            updateInfo={updateInfo}
+          />
+        </CSSTransition>
+      </div>
+    );
   };
 
   return (
