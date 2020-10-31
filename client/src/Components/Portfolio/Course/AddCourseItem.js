@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Jumbotron, Row, Col } from "react-bootstrap";
+import { Container, Jumbotron, Row, Col, Alert } from "react-bootstrap";
 import CreateCourseItem from "./CreateCourseItem";
 import ListCourses from "./listCourses";
 import { getCookieValue } from "../../../Sessions/CookiesController";
@@ -20,36 +20,43 @@ export default class AddCourseItem extends Component {
   componentDidMount() {
     axios
       .get(this.props.api + "/users/" + this.userID + "/degrees")
-      .then((res) => {
+      .then(res => {
         this.updateInfo("degree", res.data);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
 
     axios
       .get(this.props.api + "/users/" + this.userID + "/courses")
-      .then((res) => {
+      .then(res => {
         this.updateInfo("course", res.data);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
 
-  addNewCourse = (data) => {
+  addNewCourse = data => {
     let newCourses = this.state.listCourse;
     newCourses.push(data);
     this.setState({ listCourse: newCourses });
   };
 
-  removeCourse = (idCourse) => {
-    console.log(idCourse);
-    let newCourses = [];
-    this.state.listCourse.forEach((element) => {
-      if (element._id !== idCourse) newCourses.push(element);
-    });
-    this.setState({ listCourse: newCourses });
+  removeCourse = idCourse => {
+    axios
+      .delete(this.props.api + "/courses/" + idCourse)
+      .then(resp => {
+        console.log(resp);
+        let newCourses = [];
+        this.state.listCourse.forEach(element => {
+          if (element._id !== idCourse) newCourses.push(element);
+        });
+        this.setState({ listCourse: newCourses });
+      })
+      .catch(error => {
+        Alert(error);
+      });
   };
 
   render() {
