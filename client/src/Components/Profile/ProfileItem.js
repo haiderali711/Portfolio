@@ -50,7 +50,7 @@ export default function Profile({ info, updateInfo }) {
       <div>
         <CSSTransition
           in={currentValues.name === true}
-          timeout={300}
+          timeout={{ enter: 500, exit: 300 }}
           classNames="profs"
           unmountOnExit
         >
@@ -63,7 +63,7 @@ export default function Profile({ info, updateInfo }) {
         </CSSTransition>
         <CSSTransition
           in={currentValues.email === true}
-          timeout={300}
+          timeout={{ enter: 500, exit: 300 }}
           classNames="profs"
           unmountOnExit
         >
@@ -78,7 +78,7 @@ export default function Profile({ info, updateInfo }) {
         </CSSTransition>
         <CSSTransition
           in={currentValues.username === true}
-          timeout={300}
+          timeout={{ enter: 500, exit: 300 }}
           classNames="profs"
           unmountOnExit
         >
@@ -93,7 +93,7 @@ export default function Profile({ info, updateInfo }) {
         </CSSTransition>
         <CSSTransition
           in={currentValues.password === true}
-          timeout={300}
+          timeout={{ enter: 500, exit: 300 }}
           classNames="profs"
           unmountOnExit
         >
@@ -108,7 +108,7 @@ export default function Profile({ info, updateInfo }) {
         </CSSTransition>
         <CSSTransition
           in={currentValues.address === true}
-          timeout={300}
+          timeout={{ enter: 500, exit: 300 }}
           classNames="profs"
           unmountOnExit
         >
@@ -123,7 +123,7 @@ export default function Profile({ info, updateInfo }) {
         </CSSTransition>
         <CSSTransition
           in={currentValues.city === true}
-          timeout={300}
+          timeout={{ enter: 500, exit: 300 }}
           classNames="profs"
           unmountOnExit
         >
@@ -138,7 +138,7 @@ export default function Profile({ info, updateInfo }) {
         </CSSTransition>
         <CSSTransition
           in={currentValues.country === true}
-          timeout={300}
+          timeout={{ enter: 500, exit: 300 }}
           classNames="profs"
           unmountOnExit
         >

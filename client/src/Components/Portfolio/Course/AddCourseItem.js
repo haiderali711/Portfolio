@@ -1,0 +1,60 @@
+import React, { Component } from "react";
+import { Container, Jumbotron, Row, Col } from "react-bootstrap";
+import CreateCourseItem from "./CreateCourseItem";
+import { getCookieValue } from "../../../Sessions/CookiesController";
+import axios from "axios";
+
+export default class AddCourseItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { listDegree: [], listCourse: [] };
+    this.userID = getCookieValue("id");
+  }
+
+  updateInfo = (degreeOrCourse, data) => {
+    if (degreeOrCourse === "degree") this.setState({ listDegree: data });
+    if (degreeOrCourse === "course") this.setState({ listCourse: data });
+  };
+
+  componentDidMount() {
+    axios
+      .get(this.props.api + "/users/" + this.userID + "/degrees")
+      .then((res) => {
+        this.updateInfo("degree", res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get(this.props.api + "/users/" + this.userID + "/courses")
+      .then((res) => {
+        this.updateInfo("course", res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <Container>
+          <Jumbotron>
+            <Row>
+              <Col>
+                <CreateCourseItem
+                  userID={this.userID}
+                  listDegree={this.state.listDegree}
+                  listCourse={this.state.listCourse}
+                  api={this.props.api}
+                />
+              </Col>
+              <Col></Col>
+            </Row>
+          </Jumbotron>
+        </Container>
+      </div>
+    );
+  }
+}

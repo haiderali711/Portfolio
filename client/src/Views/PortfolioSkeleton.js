@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Jumbotron, ListGroup } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
-import AddCourseItem from "../Components/Portfolio/AddCourseItem";
+import AddCourseItem from "../Components/Portfolio/Course/AddCourseItem";
 import AddSkillItem from "../Components/Portfolio/AddSkillItem";
 import AddProjectItem from "../Components/Portfolio/AddProjectItem";
 import AddDegreeItem from "../Components/Portfolio/AddDegreeItem";
@@ -24,7 +24,7 @@ export default class PortfolioSkeleton extends Component {
           classNames="objs"
           unmountOnExit
         >
-          <AddSkillItem />
+          <AddSkillItem api={this.props.api} />
         </CSSTransition>
         <CSSTransition
           in={this.state.activeWindow === 2}
@@ -32,7 +32,7 @@ export default class PortfolioSkeleton extends Component {
           classNames="objs"
           unmountOnExit
         >
-          <AddProjectItem />
+          <AddProjectItem api={this.props.api} />
         </CSSTransition>
         <CSSTransition
           in={this.state.activeWindow === 3}
@@ -40,7 +40,7 @@ export default class PortfolioSkeleton extends Component {
           classNames="objs"
           unmountOnExit
         >
-          <AddCourseItem />
+          <AddCourseItem api={this.props.api} />
         </CSSTransition>
         <CSSTransition
           in={this.state.activeWindow === 4}
@@ -48,7 +48,7 @@ export default class PortfolioSkeleton extends Component {
           classNames="objs"
           unmountOnExit
         >
-          <AddDegreeItem />
+          <AddDegreeItem api={this.props.api} />
         </CSSTransition>
       </div>
     );

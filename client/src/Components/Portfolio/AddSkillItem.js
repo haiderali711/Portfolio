@@ -5,23 +5,7 @@ export default function AddSkillItem() {
   return (
     <div>
       <Container>
-        <Jumbotron>
-          <p>Skills</p>
-          <p>Degrees</p>
-          <p>dhasfuihasdf</p>
-          <p>Degrees</p>
-          <p>dhasfuihasdf</p>
-          <p>Degrees</p>
-          <p>dhasfuihasdf</p>
-          <p>Degrees</p>
-          <p>dhasfuihasdf</p>
-          <p>Degrees</p>
-          <p>dhasfuihasdf</p>
-          <p>Degrees</p>
-          <p>dhasfuihasdf</p>
-          <p>Degrees</p>
-          <p>dhasfuihasdf</p>
-        </Jumbotron>
+        <Jumbotron></Jumbotron>
       </Container>
     </div>
   );
