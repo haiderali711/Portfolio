@@ -22,12 +22,12 @@ export default function CreateCourseItem(props) {
       });
       body = { name: course, grade: grades, degree: degreeId, user: userC };
     }
-    console.log(body);
     axios
       .post(props.api + "/courses", body)
       .then((res) => {
         newMessage(res.data.name + " was Added!");
         setShow(true);
+        props.addNewCourse(res.data);
       })
       .catch((error) => {
         var res = error.response.data;
@@ -39,7 +39,7 @@ export default function CreateCourseItem(props) {
 
   return (
     <div>
-      <Card style={{ width: "18rem" }}>
+      <Card>
         <Modal.Header>
           <h1>
             <Badge variant="secondary">Add Course</Badge>
@@ -64,7 +64,7 @@ export default function CreateCourseItem(props) {
                   <option key={course.id}>{course.name}</option>
                 ))} */}
                 {props.listDegree.map((degree) => (
-                  <option key={degree.id}>{degree.name}</option>
+                  <option key={degree._id}>{degree.name}</option>
                 ))}
               </Form.Control>
             </Form.Group>

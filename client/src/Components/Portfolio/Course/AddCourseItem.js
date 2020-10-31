@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Jumbotron, Row, Col } from "react-bootstrap";
 import CreateCourseItem from "./CreateCourseItem";
+import ListCourses from "./listCourses";
 import { getCookieValue } from "../../../Sessions/CookiesController";
 import axios from "axios";
 
@@ -36,6 +37,21 @@ export default class AddCourseItem extends Component {
       });
   }
 
+  addNewCourse = (data) => {
+    let newCourses = this.state.listCourse;
+    newCourses.push(data);
+    this.setState({ listCourse: newCourses });
+  };
+
+  removeCourse = (idCourse) => {
+    console.log(idCourse);
+    let newCourses = [];
+    this.state.listCourse.forEach((element) => {
+      if (element._id !== idCourse) newCourses.push(element);
+    });
+    this.setState({ listCourse: newCourses });
+  };
+
   render() {
     return (
       <div>
@@ -46,11 +62,18 @@ export default class AddCourseItem extends Component {
                 <CreateCourseItem
                   userID={this.userID}
                   listDegree={this.state.listDegree}
-                  listCourse={this.state.listCourse}
                   api={this.props.api}
+                  addNewCourse={this.addNewCourse}
                 />
               </Col>
-              <Col></Col>
+              <Col>
+                <ListCourses
+                  userID={this.userID}
+                  arrayCourse={this.state.listCourse}
+                  api={this.props.api}
+                  removeCourse={this.removeCourse}
+                />
+              </Col>
             </Row>
           </Jumbotron>
         </Container>
