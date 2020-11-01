@@ -17,19 +17,21 @@ export default function CreateCourseItem(props) {
       body = { name: course, grade: grades, user: userC };
     } else {
       let degreeId = "";
-      props.listDegree.map(degree => {
+      props.listDegree.forEach((degree) => {
         if (degree.name === degreeDom) degreeId = degree._id;
       });
+      // Another way for taking out one element from array and keep the remaining in the list
+      // setItems((items) => items.filter((item) => item.id !== id))
       body = { name: course, grade: grades, degree: degreeId, user: userC };
     }
     axios
       .post(props.api + "/courses", body)
-      .then(res => {
+      .then((res) => {
         newMessage(res.data.name + " was Added!");
         setShow(true);
         props.addNewCourse(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         var res = error.response.data;
         var code = error.response.status;
         newMessage("status code :" + code + " " + res);
@@ -63,7 +65,7 @@ export default function CreateCourseItem(props) {
                 {/* {props.listCourse.map((course) => (
                   <option key={course.id}>{course.name}</option>
                 ))} */}
-                {props.listDegree.map(degree => (
+                {props.listDegree.map((degree) => (
                   <option key={degree._id}>{degree.name}</option>
                 ))}
               </Form.Control>

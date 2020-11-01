@@ -5,7 +5,7 @@ import {
   Modal,
   Badge,
   Button,
-  Container
+  Container,
 } from "react-bootstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./listCourses.css";
@@ -29,12 +29,9 @@ export default function listCourses(props) {
                     className="remove-btn"
                     variant="danger"
                     size="sm"
-                    onClick={
-                      () => {
-                        props.removeCourse(_id);
-                      }
-                      // setItems((items) => items.filter((item) => item.id !== id))
-                    }
+                    onClick={() => {
+                      props.removeCourse(_id);
+                    }}
                   >
                     &times;
                   </Button>
