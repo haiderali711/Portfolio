@@ -93,7 +93,8 @@ const findCourseByUserId = (req, res) => {
     .then((result) => {
       if (result.length === 0) throw 404;
 
-      res.status(200).json(result);
+      reversedRes = result.reverse();
+      res.status(200).json(reversedRes);
     })
     .catch((error) => {
       if (error === 404)
