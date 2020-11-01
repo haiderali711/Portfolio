@@ -84,7 +84,7 @@ export const NavBar = ({
             </Navbar.Collapse>
           </Navbar>
         </header>
-        <section>
+        <section className="main-container">
           <Router
             signedIn={signedIn}
             onSignIn={onSignIn}

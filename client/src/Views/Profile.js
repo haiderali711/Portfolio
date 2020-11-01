@@ -34,8 +34,8 @@ export default class Profile extends Component {
     console.log(this.props.signedIn);
     if (this.props.signedIn) {
       return (
-        <Container>
-          <Jumbotron>
+        <Container className="main-container">
+          <Jumbotron className="main-container">
             <ProfileItem info={this.state.info} updateInfo={this.updateInfo} />
           </Jumbotron>
         </Container>

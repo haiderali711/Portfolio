@@ -18,3 +18,7 @@
   opacity: 0;
   transition: opacity 800ms ease-in;
 }
+
+.react-scrollbar-default {
+  max-height: 350px;
+}

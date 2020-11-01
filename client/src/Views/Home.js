@@ -5,7 +5,7 @@ import { Container, Jumbotron } from "react-bootstrap/";
 
 export const Home = () => {
   return (
-    <Jumbotron fluid>
+    <Jumbotron fluid className="main-container">
       <Container>
         <h1>My PortFolio Website</h1>
         <h3>
