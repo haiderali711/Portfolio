@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Jumbotron, ListGroup } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
 import AddCourseItem from "../Components/Portfolio/Course/AddCourseItem";
-import AddSkillItem from "../Components/Portfolio/Skills/AddSkillItem";
+import AddSkillItem from "../Components/Portfolio/Skills/skillItem";
 import AddProjectItem from "../Components/Portfolio/AddProjectItem";
 import AddDegreeItem from "../Components/Portfolio/Degree/AddDegreeItem";
 
