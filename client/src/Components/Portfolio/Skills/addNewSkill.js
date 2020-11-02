@@ -40,7 +40,7 @@ export default function addNewSkill(props) {
                   <Form.Label>Course</Form.Label>
                   <Form.Control as="select">
                     <option>Not selected</option>
-                    {props.listCourses.map(course => (
+                    {props.listCourses.map((course) => (
                       <option key={course._id}>{course.name}</option>
                     ))}
                   </Form.Control>
@@ -52,7 +52,7 @@ export default function addNewSkill(props) {
                   <Form.Label>Projects</Form.Label>
                   <Form.Control as="select">
                     <option>Not selected</option>
-                    {props.listProjects.map(project => (
+                    {props.listProjects.map((project) => (
                       <option key={project._id}>{project.name}</option>
                     ))}
                   </Form.Control>
