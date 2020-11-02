@@ -33,6 +33,7 @@ export default class skillItem extends Component {
       <div>
         <Container>
           <AddNewSkill
+            api={this.props.api}
             listCourses={this.state.listCourses}
             listProjects={this.state.listProjects}
           />

@@ -5,10 +5,15 @@ const Schema = mongoose.Schema;
 const skillSchema = new Schema({
   name: { type: String, required: true, maxlength: 50 },
   level: { type: Number },
-  type: { type: String, required: true, maxlength: 50 },
+  type: {
+    type: String,
+    required: true,
+    maxlength: 50,
+    default: "Not Categorised"
+  },
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
   project: { type: Schema.Types.ObjectId, ref: "Project" },
-  course: { type: Schema.Types.ObjectId, ref: "Course" },
+  course: { type: Schema.Types.ObjectId, ref: "Course" }
 });
 
 // skillSchema.plugin(mongoosePaginate);
