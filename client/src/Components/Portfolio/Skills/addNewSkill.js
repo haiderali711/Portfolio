@@ -17,16 +17,16 @@ export default function AddNewSkill(props) {
     let body = {
       name: skillNameF,
       level: currentLevel,
-      user: getCookieValue("id")
+      user: getCookieValue("id"),
     };
     if (courseF !== "Not selected") {
-      props.listCourses.forEach(course => {
+      props.listCourses.forEach((course) => {
         if (course.name.trim() === courseF) body.course = course._id;
       });
     }
 
     if (projectF !== "Not selected") {
-      props.listProjects.forEach(project => {
+      props.listProjects.forEach((project) => {
         if (project.name.trim() === projectF) body.project = project._id;
       });
     }
@@ -48,11 +48,12 @@ export default function AddNewSkill(props) {
     let body = createBody();
     axios
       .post(props.api + "/skills", body)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         resetForm();
+        props.updateSkills(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -90,7 +91,7 @@ export default function AddNewSkill(props) {
                   <Form.Label>Course</Form.Label>
                   <Form.Control as="select">
                     <option>Not selected</option>
-                    {props.listCourses.map(course => (
+                    {props.listCourses.map((course) => (
                       <option key={course._id}>{course.name}</option>
                     ))}
                   </Form.Control>
@@ -102,7 +103,7 @@ export default function AddNewSkill(props) {
                   <Form.Label>Projects</Form.Label>
                   <Form.Control as="select">
                     <option>Not selected</option>
-                    {props.listProjects.map(project => (
+                    {props.listProjects.map((project) => (
                       <option key={project._id}>{project.name}</option>
                     ))}
                   </Form.Control>
@@ -114,7 +115,7 @@ export default function AddNewSkill(props) {
                   <Form.Label>Level of the Skill</Form.Label>
                   <RangeSlider
                     value={currentLevel}
-                    onChange={e => setLevel(e.target.value)}
+                    onChange={(e) => setLevel(e.target.value)}
                     step={1}
                     min={1}
                     max={5}

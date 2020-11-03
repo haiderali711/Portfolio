@@ -25,9 +25,9 @@ export default function ListSkills(props) {
                       className="remove-btn"
                       variant="danger"
                       size="sm"
-                      //   onClick={() => {
-                      //     props.removeCourse(_id);
-                      //   }}
+                      onClick={() => {
+                        props.removeSkill(_id);
+                      }}
                     >
                       &times;
                     </Button>
