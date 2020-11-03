@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { ListGroup, Card, Modal, Badge, Button } from "react-bootstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./listSkills.css";
 import ScrollArea from "react-scrollbar";
+import UpdatetSkill from "./updateSkill";
 
 export default function ListSkills(props) {
+  const [show, setShow] = useState(false);
+  const [currentSkillID, updateSkillID] = useState("");
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <section>
       <br />
+      <UpdatetSkill show={show} handleClose={handleClose} id={currentSkillID} />
+
       <Card>
         <Modal.Header>
           <h1>
@@ -26,7 +34,8 @@ export default function ListSkills(props) {
                       variant="light"
                       size="sm"
                       onClick={() => {
-                        console.log(_id);
+                        updateSkillID(_id);
+                        handleShow();
                       }}
                     >
                       &hellip;

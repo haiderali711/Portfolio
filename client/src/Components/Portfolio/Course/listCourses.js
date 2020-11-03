@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ListGroup,
   Card,
@@ -10,10 +10,20 @@ import {
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./listCourses.css";
 import ScrollArea from "react-scrollbar";
+import UpdateCourse from "./updateCourse";
 
-export default function listCourses(props) {
+export default function ListCourses(props) {
+  const [show, setShow] = useState(false);
+  const [currentCourseID, updateCourseID] = useState("");
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <Container>
+      <UpdateCourse
+        show={show}
+        handleClose={handleClose}
+        id={currentCourseID}
+      />
       <Card>
         <Modal.Header>
           <h1>
@@ -33,6 +43,8 @@ export default function listCourses(props) {
                       size="sm"
                       onClick={() => {
                         console.log(_id);
+                        updateCourseID(_id);
+                        handleShow();
                       }}
                     >
                       &hellip;
