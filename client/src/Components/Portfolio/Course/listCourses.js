@@ -5,7 +5,7 @@ import {
   Modal,
   Badge,
   Button,
-  Container,
+  Container
 } from "react-bootstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./listCourses.css";
@@ -27,6 +27,16 @@ export default function listCourses(props) {
                 <CSSTransition key={_id} timeout={800} classNames="item">
                   <ListGroup.Item>
                     {name}
+                    <Button
+                      className="remove-btn"
+                      variant="light"
+                      size="sm"
+                      onClick={() => {
+                        console.log(_id);
+                      }}
+                    >
+                      &hellip;
+                    </Button>
                     <Button
                       className="remove-btn"
                       variant="danger"

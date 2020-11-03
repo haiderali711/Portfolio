@@ -23,6 +23,16 @@ export default function ListSkills(props) {
                     {name}
                     <Button
                       className="remove-btn"
+                      variant="light"
+                      size="sm"
+                      onClick={() => {
+                        console.log(_id);
+                      }}
+                    >
+                      &hellip;
+                    </Button>
+                    <Button
+                      className="remove-btn"
                       variant="danger"
                       size="sm"
                       onClick={() => {
