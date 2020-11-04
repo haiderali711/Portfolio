@@ -15,14 +15,20 @@ import UpdateCourse from "./updateCourse";
 export default function ListCourses(props) {
   const [show, setShow] = useState(false);
   const [currentCourseID, updateCourseID] = useState("");
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    updateCourseID("");
+  };
   const handleShow = () => setShow(true);
+
   return (
     <Container>
       <UpdateCourse
+        api={props.api}
         show={show}
         handleClose={handleClose}
         id={currentCourseID}
+        listDegree={props.listDegree}
       />
       <Card>
         <Modal.Header>
