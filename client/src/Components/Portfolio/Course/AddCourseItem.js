@@ -20,41 +20,50 @@ export default class AddCourseItem extends Component {
   componentDidMount() {
     axios
       .get(this.props.api + "/users/" + this.userID + "/degrees")
-      .then(res => {
+      .then((res) => {
         this.updateInfo("degree", res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     axios
       .get(this.props.api + "/users/" + this.userID + "/courses")
-      .then(res => {
+      .then((res) => {
         this.updateInfo("course", res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
 
-  addNewCourse = data => {
+  addNewCourse = (data) => {
     let newCourses = this.state.listCourse;
     newCourses.unshift(data);
     this.setState({ listCourse: newCourses });
   };
 
-  removeCourse = idCourse => {
+  patchOneCourse = (data) => {
+    let newListCourseArray = [];
+    this.state.listCourse.forEach((element) => {
+      if (data._id === element._id) newListCourseArray.push(data);
+      else newListCourseArray.push(element);
+    });
+    this.setState({ listCourse: newListCourseArray });
+  };
+
+  removeCourse = (idCourse) => {
     axios
       .delete(this.props.api + "/courses/" + idCourse)
-      .then(resp => {
+      .then((resp) => {
         console.log(resp);
         let newCourses = [];
-        this.state.listCourse.forEach(element => {
+        this.state.listCourse.forEach((element) => {
           if (element._id !== idCourse) newCourses.push(element);
         });
         this.setState({ listCourse: newCourses });
       })
-      .catch(error => {
+      .catch((error) => {
         Alert(error);
       });
   };
@@ -79,6 +88,7 @@ export default class AddCourseItem extends Component {
                   arrayCourse={this.state.listCourse}
                   api={this.props.api}
                   removeCourse={this.removeCourse}
+                  patchOneCourse={this.patchOneCourse}
                 />
               </Col>
             </Row>

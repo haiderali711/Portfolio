@@ -3,23 +3,10 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
 export default class updateCourse extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { data: {} };
-  }
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.id !== prevProps.id && this.props.id !== "") {
-      axios
-        .get(this.props.api + "/courses/" + this.props.id)
-        .then(res => {
-          const newRes = res.data;
-          this.setState({ data: newRes });
-          console.log(res.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    if (this.props.data._id !== prevProps.data._id) {
+      this.prevProps = this.props;
     }
   }
 
@@ -29,20 +16,23 @@ export default class updateCourse extends Component {
     patchObj.grade = document.getElementById("gradeCourseModal").value;
 
     axios
-      .patch(this.props.api + "/courses/" + this.props.id, patchObj)
-      .then(res => {
+      .patch(this.props.api + "/courses/" + this.props.data._id, patchObj)
+      .then((res) => {
         console.log(res.data);
-
+        let updatedObject = this.props.data;
+        updatedObject.name = patchObj.name;
+        updatedObject.grade = patchObj.grade;
+        this.props.patchOneCourse(updatedObject);
         this.props.handleClose();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
   render() {
     return (
       <div>
-        <Modal show={this.props.show} onHide={this.props.handleClose}>
+        <Modal animation show={this.props.show} onHide={this.props.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Course Details</Modal.Title>
           </Modal.Header>
@@ -53,7 +43,7 @@ export default class updateCourse extends Component {
                 <Form.Control
                   type="text"
                   placeholder="Course name"
-                  defaultValue={this.state.data.name}
+                  defaultValue={this.props.data.name}
                 />
               </Form.Group>
               <Form.Group controlId="gradeCourseModal">
@@ -61,7 +51,7 @@ export default class updateCourse extends Component {
                 <Form.Control
                   type="text"
                   placeholder="Grades"
-                  defaultValue={this.state.data.grade}
+                  defaultValue={this.props.data.grade}
                 />
               </Form.Group>
             </Form>

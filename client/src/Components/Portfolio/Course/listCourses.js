@@ -5,21 +5,33 @@ import {
   Modal,
   Badge,
   Button,
-  Container
+  Container,
 } from "react-bootstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./listCourses.css";
 import ScrollArea from "react-scrollbar";
 import UpdateCourse from "./updateCourse";
+import axios from "axios";
 
 export default function ListCourses(props) {
   const [show, setShow] = useState(false);
-  const [currentCourseID, updateCourseID] = useState("");
-  const handleClose = () => {
-    setShow(false);
-    updateCourseID("");
-  };
+  const [currentCourse, updateCourse] = useState({});
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const loadCourseByID = (_id) => {
+    axios
+      .get(props.api + "/courses/" + _id)
+      .then((res) => {
+        const newRes = res.data;
+        updateCourse(newRes);
+        handleShow();
+        console.log(currentCourse);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Container>
@@ -27,8 +39,9 @@ export default function ListCourses(props) {
         api={props.api}
         show={show}
         handleClose={handleClose}
-        id={currentCourseID}
+        data={currentCourse}
         listDegree={props.listDegree}
+        patchOneCourse={props.patchOneCourse}
       />
       <Card>
         <Modal.Header>
@@ -48,9 +61,7 @@ export default function ListCourses(props) {
                       variant="light"
                       size="sm"
                       onClick={() => {
-                        console.log(_id);
-                        updateCourseID(_id);
-                        handleShow();
+                        loadCourseByID(_id);
                       }}
                     >
                       &hellip;
