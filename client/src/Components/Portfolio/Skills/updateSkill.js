@@ -41,13 +41,15 @@ export default class updateSkill extends Component {
     let course = document.getElementById("patchCourse").value;
     let project = document.getElementById("patchProject").value;
     if (course !== "Not Selected") {
-      this.listCourses.forEach(element => {
-        if (element.name === course) patchObj.course = element._id;
+      this.props.listCourses.forEach(element => {
+        if (element.name.trim() === course.trim())
+          patchObj.course = element._id;
       });
     }
     if (project !== "Not Selected") {
-      this.listProjects.forEach(element => {
-        if (element.name === course) patchObj.project = element._id;
+      this.props.listProjects.forEach(element => {
+        let tempName = element.name.trim();
+        if (tempName.trim() === project.trim()) patchObj.project = element._id;
       });
     }
     console.log(patchObj);
