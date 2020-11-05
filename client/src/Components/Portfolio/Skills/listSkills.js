@@ -4,17 +4,41 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./listSkills.css";
 import ScrollArea from "react-scrollbar";
 import UpdatetSkill from "./updateSkill";
+import axios from "axios";
 
 export default function ListSkills(props) {
   const [show, setShow] = useState(false);
-  const [currentSkillID, updateSkillID] = useState("");
+  const [currentSkill, updateSkill] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const loadSkillByID = _id => {
+    axios
+      .get(props.api + "/skills/" + _id)
+      .then(res => {
+        const newRes = res.data;
+        updateSkill(newRes);
+        handleShow();
+        console.log(currentSkill);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   return (
     <section>
       <br />
-      <UpdatetSkill show={show} handleClose={handleClose} id={currentSkillID} />
+      <UpdatetSkill
+        show={show}
+        handleClose={handleClose}
+        api={props.api}
+        data={currentSkill}
+        listSkills={props.listSkills}
+        listCourses={props.listCourses}
+        listProjects={props.listProjects}
+        patchSkillItem={props.patchSkillItem}
+      />
 
       <Card>
         <Modal.Header>
@@ -34,8 +58,7 @@ export default function ListSkills(props) {
                       variant="light"
                       size="sm"
                       onClick={() => {
-                        updateSkillID(_id);
-                        handleShow();
+                        loadSkillByID(_id);
                       }}
                     >
                       &hellip;

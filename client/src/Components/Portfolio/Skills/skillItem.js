@@ -14,55 +14,55 @@ export default class skillItem extends Component {
   componentDidMount() {
     axios
       .get(this.props.api + "/users/" + getCookieValue("id") + "/courses")
-      .then((res) => {
+      .then(res => {
         this.setState({ listCourses: res.data });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.status);
       });
     axios
       .get(this.props.api + "/users/" + getCookieValue("id") + "/projects")
-      .then((res) => {
+      .then(res => {
         this.setState({ listProjects: res.data });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.status);
       });
     axios
       .get(this.props.api + "/users/" + getCookieValue("id") + "/skills")
-      .then((res) => {
+      .then(res => {
         this.setState({ listSkills: res.data.reverse() });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.status);
         this.setState({ listSkills: [] });
       });
   }
 
-  updateSkills = (data) => {
+  updateSkills = data => {
     let temp = this.state.listSkills;
     temp.unshift(data);
     this.setState({ listSkills: temp });
   };
 
-  removeSkill = (idS) => {
+  removeSkill = idS => {
     axios
       .delete(this.props.api + "/skills/" + idS)
-      .then((res) => {
+      .then(res => {
         let newSkills = [];
-        this.state.listSkills.forEach((element) => {
+        this.state.listSkills.forEach(element => {
           if (element._id !== idS) newSkills.push(element);
         });
         this.setState({ listSkills: newSkills });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.status);
       });
   };
 
-  patchSkillItem = (data) => {
+  patchSkillItem = data => {
     let newListSkillArray = [];
-    this.state.listSkills.forEach((element) => {
+    this.state.listSkills.forEach(element => {
       if (data._id === element._id) newListSkillArray.push(data);
       else newListSkillArray.push(element);
     });
@@ -75,6 +75,8 @@ export default class skillItem extends Component {
         <ShowListSkills
           api={this.props.api}
           listSkills={this.state.listSkills}
+          listCourses={this.state.listCourses}
+          listProjects={this.state.listProjects}
           removeSkill={this.removeSkill}
           patchSkillItem={this.patchSkillItem}
         />

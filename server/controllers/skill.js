@@ -7,7 +7,7 @@ const createSkill = (req, res, next) => {
       if (foundSkill === null) {
         const skill = new Skill(req.body);
 
-        skill.save(function (err) {
+        skill.save(function(err) {
           if (err) {
             return next(err);
           }
@@ -17,7 +17,7 @@ const createSkill = (req, res, next) => {
         res.status(201).json({ message: "already exists" });
       }
     }
-  ).catch((error) => {
+  ).catch(error => {
     if (error === 401) res.status(404).json();
     else res.status(500).json({ error: error });
   });
@@ -26,12 +26,12 @@ const createSkill = (req, res, next) => {
 const patchSkill = (req, res) => {
   Skill.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
     .exec()
-    .then((result) => {
+    .then(result => {
       if (!result) throw 404;
 
       res.status(200).json(result);
     })
-    .catch((error) => {
+    .catch(error => {
       if (error === 404) res.status(404).json({ message: "Not found" });
       else res.status(500).json({ error: error });
     });
@@ -40,12 +40,12 @@ const patchSkill = (req, res) => {
 const deleteSkill = (req, res) => {
   Skill.findByIdAndDelete({ _id: req.params.id })
     .exec()
-    .then((result) => {
+    .then(result => {
       if (!result) throw 404;
 
       res.status(202).json(result);
     })
-    .catch((error) => {
+    .catch(error => {
       if (error === 404) {
         res
           .status(404)
@@ -56,8 +56,22 @@ const deleteSkill = (req, res) => {
     });
 };
 
+const getSkillByID = (req, res, next) => {
+  let id = req.params.id;
+
+  Skill.findById({ _id: id }, (err, foundSkill) => {
+    if (err) throw 404;
+    if (foundSkill === null) {
+      res.status(404).json({ message: "notfound" });
+    } else {
+      res.status(200).json(foundSkill);
+    }
+  });
+};
+
 module.exports = {
+  getSkillByID,
   createSkill,
   deleteSkill,
-  patchSkill,
+  patchSkill
 };
