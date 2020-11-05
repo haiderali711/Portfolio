@@ -8,7 +8,7 @@ export default class updateSkill extends Component {
     this.state = {
       currentLevel: 0,
       currentCourseName: "Not Selected",
-      currentDegreeName: "Not Selected"
+      currentDegreeName: "Not Selected",
     };
     this.listType = ["Language", "Programming", "Managegment"];
   }
@@ -19,7 +19,12 @@ export default class updateSkill extends Component {
       this.prevProps = this.props;
     }
   }
-
+  returnCourseName = () => {
+    this.props.listCourses.map((element) => {
+      if (element._id === this.props.data.course) return element.name;
+      else return "Not Selected";
+    });
+  };
   patchNewValuesInSkill = () => {
     console.log("Heeeeeej");
     // var patchObj = {};
@@ -60,7 +65,7 @@ export default class updateSkill extends Component {
               <Form.Group controlId="patchType">
                 <Form.Label>Type</Form.Label>
                 <Form.Control as="select" defaultValue={this.props.data.type}>
-                  <option>Not selected</option>
+                  <option>Not Selected</option>
                   {this.listType.map((element, i) => (
                     <option key={i} value={element}>
                       {element}
@@ -70,9 +75,12 @@ export default class updateSkill extends Component {
               </Form.Group>
               <Form.Group controlId="patchCourse">
                 <Form.Label>Course</Form.Label>
-                <Form.Control as="select">
-                  <option>Not selected</option>
-                  {this.props.listCourses.map(course => (
+                <Form.Control
+                  as="select"
+                  defaultValue={this.state.currentCourseName}
+                >
+                  <option>Not Selected</option>
+                  {this.props.listCourses.map((course) => (
                     <option key={course._id} value={course.name}>
                       {course.name}
                     </option>
@@ -86,7 +94,7 @@ export default class updateSkill extends Component {
                 <Form.Label>Projects</Form.Label>
                 <Form.Control as="select">
                   <option>Not selected</option>
-                  {this.props.listProjects.map(project => (
+                  {this.props.listProjects.map((project) => (
                     <option key={project._id}>{project.name}</option>
                   ))}
                 </Form.Control>
@@ -98,7 +106,7 @@ export default class updateSkill extends Component {
                 <Form.Label>Level of the Skill</Form.Label>
                 <RangeSlider
                   value={this.state.currentLevel}
-                  onChange={e =>
+                  onChange={(e) =>
                     this.setState({ currentLevel: e.target.value })
                   }
                   step={1}
@@ -112,7 +120,7 @@ export default class updateSkill extends Component {
             <Button variant="secondary" onClick={this.props.handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={this.patchNewValuesInSkill}>
+            <Button variant="primary" onClick={this.returnCourseName}>
               Update Skill
             </Button>
           </Modal.Footer>

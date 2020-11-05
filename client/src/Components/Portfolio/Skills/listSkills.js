@@ -12,16 +12,16 @@ export default function ListSkills(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const loadSkillByID = _id => {
+  const loadSkillByID = (_id) => {
     axios
       .get(props.api + "/skills/" + _id)
-      .then(res => {
+      .then((res) => {
         const newRes = res.data;
         updateSkill(newRes);
         handleShow();
         console.log(currentSkill);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
