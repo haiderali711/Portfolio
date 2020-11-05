@@ -60,6 +60,15 @@ export default class skillItem extends Component {
       });
   };
 
+  patchSkillItem = (data) => {
+    let newListSkillArray = [];
+    this.state.listSkills.forEach((element) => {
+      if (data._id === element._id) newListSkillArray.push(data);
+      else newListSkillArray.push(element);
+    });
+    this.setState({ listCourse: newListSkillArray });
+  };
+
   showSkills = () => {
     if (this.state.listSkills.length !== 0) {
       return (
@@ -67,6 +76,7 @@ export default class skillItem extends Component {
           api={this.props.api}
           listSkills={this.state.listSkills}
           removeSkill={this.removeSkill}
+          patchSkillItem={this.patchSkillItem}
         />
       );
     } else
