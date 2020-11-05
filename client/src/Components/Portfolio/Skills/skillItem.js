@@ -66,7 +66,7 @@ export default class skillItem extends Component {
       if (data._id === element._id) newListSkillArray.push(data);
       else newListSkillArray.push(element);
     });
-    this.setState({ listCourse: newListSkillArray });
+    this.setState({ listSkills: newListSkillArray });
   };
 
   showSkills = () => {

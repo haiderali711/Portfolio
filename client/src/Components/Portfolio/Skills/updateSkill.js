@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
+import axios from "axios";
 
 export default class updateSkill extends Component {
   constructor(props) {
@@ -53,19 +54,18 @@ export default class updateSkill extends Component {
       });
     }
     console.log(patchObj);
-    // axios
-    //   .patch(this.props.api + "/courses/" + this.props.data._id, patchObj)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     let updatedObject = this.props.data;
-    //     updatedObject.name = patchObj.name;
-    //     updatedObject.grade = patchObj.grade;
-    //     this.props.patchOneCourse(updatedObject);
-    //     this.props.handleClose();
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    axios
+      .patch(this.props.api + "/skills/" + this.props.data._id, patchObj)
+      .then(res => {
+        console.log(res.data);
+        let updatedObject = patchObj;
+        updatedObject._id = this.props.data._id;
+        this.props.patchSkillItem(updatedObject);
+        this.props.handleClose();
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   render() {
