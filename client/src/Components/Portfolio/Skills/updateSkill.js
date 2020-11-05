@@ -34,10 +34,23 @@ export default class updateSkill extends Component {
     this.setState({ currentLevel: this.props.data.level });
   };
   patchNewValuesInSkill = () => {
-    console.log("Heeeeeej");
-    // var patchObj = {};
-    // patchObj.name = document.getElementById("nameCourseModal").value;
-    // patchObj.grade = document.getElementById("gradeCourseModal").value;
+    var patchObj = {};
+    patchObj.name = document.getElementById("patchSkillName").value;
+    patchObj.type = document.getElementById("patchType").value;
+    patchObj.level = this.state.currentLevel;
+    let course = document.getElementById("patchCourse").value;
+    let project = document.getElementById("patchProject").value;
+    if (course !== "Not Selected") {
+      this.listCourses.forEach(element => {
+        if (element.name === course) patchObj.course = element._id;
+      });
+    }
+    if (project !== "Not Selected") {
+      this.listProjects.forEach(element => {
+        if (element.name === course) patchObj.project = element._id;
+      });
+    }
+    console.log(patchObj);
     // axios
     //   .patch(this.props.api + "/courses/" + this.props.data._id, patchObj)
     //   .then((res) => {
@@ -62,7 +75,7 @@ export default class updateSkill extends Component {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Group controlId="patchSkill">
+              <Form.Group controlId="patchSkillName">
                 <Form.Label>Skill Name</Form.Label>
                 <Form.Control
                   type="text"
@@ -133,7 +146,7 @@ export default class updateSkill extends Component {
             <Button variant="secondary" onClick={this.props.handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={this.returnCourseName}>
+            <Button variant="primary" onClick={this.patchNewValuesInSkill}>
               Update Skill
             </Button>
           </Modal.Footer>
