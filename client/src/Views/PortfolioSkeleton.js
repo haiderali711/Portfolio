@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import AddCourseItem from "../Components/Portfolio/Course/AddCourseItem";
 import AddSkillItem from "../Components/Portfolio/Skills/skillItem";
 import AddProjectItem from "../Components/Portfolio/AddProjectItem";
-import AddDegreeItem from "../Components/Portfolio/Degree/AddDegreeItem";
+import AddDegreeItem from "../Components/Portfolio/Degree/degreeItem";
 
 import "./PortfolioSkeleton.css";
 
