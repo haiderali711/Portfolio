@@ -16,24 +16,31 @@ export default class updateSkill extends Component {
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.data._id !== prevProps.data._id) {
+    if (this.props.data !== prevProps.data) {
       this.prevProps = this.props;
       this.renderCurrentCourseProjectLevel();
     }
   }
   renderCurrentCourseProjectLevel = () => {
-    this.props.listCourses.forEach(element => {
-      if (element._id === this.props.data.course)
-        this.setState({ currentCourseName: element.name });
-    });
-
-    this.props.listProjects.forEach(element => {
-      if (element._id === this.props.data.project)
-        this.setState({ currentProjectName: element.name });
-    });
-
+    if (this.props.data.course !== undefined) {
+      this.props.listCourses.forEach(element => {
+        if (element._id === this.props.data.course)
+          this.setState({ currentCourseName: element.name });
+      });
+    } else {
+      this.setState({ currentCourseName: "Not Selected" });
+    }
+    if (this.props.data.project !== undefined) {
+      this.props.listProjects.forEach(element => {
+        if (element._id === this.props.data.project)
+          this.setState({ currentProjectName: element.name });
+      });
+    } else {
+      this.setState({ currentProjectName: "Not Selected" });
+    }
     this.setState({ currentLevel: this.props.data.level });
   };
+
   patchNewValuesInSkill = () => {
     var patchObj = {};
     patchObj.name = document.getElementById("patchSkillName").value;
@@ -61,6 +68,7 @@ export default class updateSkill extends Component {
         let updatedObject = patchObj;
         updatedObject._id = this.props.data._id;
         this.props.patchSkillItem(updatedObject);
+        this.props.updateSkillAfterPatch(updatedObject);
         this.props.handleClose();
       })
       .catch(error => {

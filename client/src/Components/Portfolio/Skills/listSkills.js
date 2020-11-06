@@ -25,6 +25,10 @@ export default function ListSkills(props) {
       });
   };
 
+  const updateSkillAfterPatch = data => {
+    updateSkill(data);
+  };
+
   return (
     <section>
       <br />
@@ -37,6 +41,7 @@ export default function ListSkills(props) {
         listCourses={props.listCourses}
         listProjects={props.listProjects}
         patchSkillItem={props.patchSkillItem}
+        updateSkillAfterPatch={updateSkillAfterPatch}
       />
 
       <Card>
