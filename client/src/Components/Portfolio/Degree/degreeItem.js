@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { getCookieValue } from "../../../Sessions/CookiesController";
 import axios from "axios";
 import AddNewDegree from "./addNewDegree";
+import ListDegrees from "./listDegrees";
 
 export default class DegreeItem extends Component {
   constructor(props) {
@@ -19,6 +20,28 @@ export default class DegreeItem extends Component {
         console.log(error.response.status);
       });
   }
+
+  addDegreeToList = (data) => {
+    let newDegreesList = this.state.listDegrees;
+    newDegreesList.push(data);
+    this.setState({ listDegrees: newDegreesList });
+  };
+
+  removeDegree = (_id) => {
+    axios
+      .delete(this.props.api + "/degrees/" + _id)
+      .then((res) => {
+        let newDegrees = [];
+        this.state.listDegrees.forEach((element) => {
+          if (element._id !== _id) newDegrees.push(element);
+        });
+        this.setState({ listDegrees: newDegrees });
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+      });
+  };
+
   render() {
     return (
       <div>
@@ -27,15 +50,21 @@ export default class DegreeItem extends Component {
             <Col>
               <AddNewDegree
                 api={this.props.api}
-                listDegrees={this.state.listDegrees}
+                addDegreeToList={this.addDegreeToList}
                 // listCourses={this.state.listCourses}
                 // listProjects={this.state.listProjects}
                 // updateSkills={this.updateSkills}
               />
             </Col>
-            {/* <Col>
-              <Container></Container>
-            </Col> */}
+          </Row>
+          <Row>
+            <Col>
+              <ListDegrees
+                api={this.props.api}
+                arrayDegrees={this.state.listDegrees}
+                removeDegree={this.removeDegree}
+              />
+            </Col>
           </Row>
         </Container>
       </div>

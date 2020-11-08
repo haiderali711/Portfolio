@@ -5,14 +5,13 @@ const createDegree = (req, res) => {
 
   degree
     .save()
-    .then(result => {
+    .then((result) => {
       res.status(201).json(result);
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({ error: error });
     });
 };
-
 
 const addCourseID = (req, res) => {
   var degreeId = req.params.id;
@@ -25,7 +24,7 @@ const addCourseID = (req, res) => {
     (err, foundDegree) => {
       res.status(200).json(foundDegree);
     }
-  ).catch(error => {
+  ).catch((error) => {
     if (error === 404) res.status(404).json();
     else res.status(500).json({ error: error });
   });
@@ -34,19 +33,33 @@ const addCourseID = (req, res) => {
 const deleteDegree = (req, res) => {
   Degree.findOneAndDelete({ _id: req.params.id })
     .exec()
-    .then(result => {
+    .then((result) => {
       if (!result) throw 404;
 
       res.status(200).json(result);
     })
-    .catch(error => {
+    .catch((error) => {
       if (error === 404) res.status(404).json({ error: `degree not found.` });
       else res.status(500).json({ error: error });
     });
+};
+
+const getDegreebyID = (req, res, next) => {
+  let id = req.params.id;
+
+  Degree.findById({ _id: id }, (err, foundDegree) => {
+    if (err) throw 404;
+    if (foundDegree === null) {
+      res.status(404).json({ message: "notfound" });
+    } else {
+      res.status(200).json(foundDegree);
+    }
+  });
 };
 
 module.exports = {
   createDegree,
   addCourseID,
   deleteDegree,
+  getDegreebyID,
 };

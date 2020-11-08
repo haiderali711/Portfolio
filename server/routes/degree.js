@@ -3,6 +3,7 @@ const router = express.Router();
 
 const degreeController = require("../controllers/degree");
 
+router.get("/:id", degreeController.getDegreebyID);
 router.post("/", degreeController.createDegree);
 router.patch("/:id/courses/:courseID", degreeController.addCourseID);
 router.delete("/:id", degreeController.deleteDegree);
