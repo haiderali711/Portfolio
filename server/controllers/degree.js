@@ -57,9 +57,24 @@ const getDegreebyID = (req, res, next) => {
   });
 };
 
+const patchDegree = (req, res, next) => {
+  let newbody = req.body;
+  let id = req.params.id;
+  Degree.updateOne({ _id: id }, { $set: newbody }, (error, updatedDegree) => {
+    if (error) {
+      return next(error);
+    }
+    if (updatedDegree === null) {
+      res.status(404).json({ message: "Not found" });
+    }
+    res.status(200).json(updatedDegree);
+  });
+};
+
 module.exports = {
   createDegree,
   addCourseID,
   deleteDegree,
   getDegreebyID,
+  patchDegree,
 };

@@ -41,6 +41,17 @@ export default class DegreeItem extends Component {
         console.log(error.response.status);
       });
   };
+  patchUpdatedDegree = (data) => {
+    let newList = [];
+    this.state.listDegrees.forEach((element) => {
+      if (element._id === data._id) {
+        newList.push(data);
+      } else {
+        newList.push(element);
+      }
+    });
+    this.setState({ listDegrees: newList });
+  };
 
   render() {
     return (
@@ -51,9 +62,6 @@ export default class DegreeItem extends Component {
               <AddNewDegree
                 api={this.props.api}
                 addDegreeToList={this.addDegreeToList}
-                // listCourses={this.state.listCourses}
-                // listProjects={this.state.listProjects}
-                // updateSkills={this.updateSkills}
               />
             </Col>
           </Row>
@@ -63,6 +71,7 @@ export default class DegreeItem extends Component {
                 api={this.props.api}
                 arrayDegrees={this.state.listDegrees}
                 removeDegree={this.removeDegree}
+                patchUpdatedDegree={this.patchUpdatedDegree}
               />
             </Col>
           </Row>

@@ -4,22 +4,22 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import ScrollArea from "react-scrollbar";
 import "./listDegrees.css";
 import axios from "axios";
-import UpdateDegrees from "./updateDegrgee";
+import UpdateDegrees from "./updateDegree";
 
 export default function ListDegrees(props) {
   const [show, setShow] = useState(false);
-  const [currentSkill, updateSkill] = useState({});
+  const [currentDegree, updateDegree] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  let loadDegreeByID = id => {
-    console.log(id);
+  let loadDegreeByID = (id) => {
     axios
       .get(props.api + "/degrees/" + id)
-      .then(res => {
-        console.log(res.data);
+      .then((res) => {
+        updateDegree(res.data);
+        handleShow();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response);
       });
   };
@@ -28,13 +28,11 @@ export default function ListDegrees(props) {
     <Container>
       <br />
       <UpdateDegrees
-        sow={show}
+        show={show}
         handleClose={handleClose}
         api={props.api}
-        data={currentSkill}
-        listSkills={props.listSkills}
-        listCourses={props.listCourses}
-        listProjects={props.listProjects}
+        data={currentDegree}
+        patchUpdatedDegree={props.patchUpdatedDegree}
       />
       <Card>
         <Modal.Header>Your Degrees</Modal.Header>
