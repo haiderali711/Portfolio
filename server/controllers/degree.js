@@ -71,10 +71,28 @@ const patchDegree = (req, res, next) => {
   });
 };
 
+const removeCourseID = (req, res) => {
+  var degreeId = req.params.id;
+  var courseId = req.params.courseID;
+
+  Degree.findOneAndUpdate(
+    { _id: degreeId },
+    { $pull: { course: courseId } },
+    { new: true },
+    (err, foundDegree) => {
+      res.status(200).json(foundDegree);
+    }
+  ).catch((error) => {
+    if (error === 404) res.status(404).json();
+    else res.status(500).json({ error: error });
+  });
+};
+
 module.exports = {
   createDegree,
   addCourseID,
   deleteDegree,
   getDegreebyID,
   patchDegree,
+  removeCourseID,
 };

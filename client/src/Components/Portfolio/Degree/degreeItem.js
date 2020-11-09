@@ -9,12 +9,15 @@ export default class DegreeItem extends Component {
   constructor(props) {
     super(props);
     this.state = { listDegrees: [] };
+    this.newDegNode = React.createRef();
+    this.listDegNode = React.createRef();
   }
   componentDidMount() {
     axios
       .get(this.props.api + "/users/" + getCookieValue("id") + "/degrees")
       .then((res) => {
         this.setState({ listDegrees: res.data });
+        console.log(this.state.listDegrees);
       })
       .catch((error) => {
         console.log(error.response.status);
@@ -60,6 +63,7 @@ export default class DegreeItem extends Component {
           <Row>
             <Col>
               <AddNewDegree
+                ref={this.newDegNode}
                 api={this.props.api}
                 addDegreeToList={this.addDegreeToList}
               />
@@ -68,6 +72,7 @@ export default class DegreeItem extends Component {
           <Row>
             <Col>
               <ListDegrees
+                ref={this.listDegNode}
                 api={this.props.api}
                 arrayDegrees={this.state.listDegrees}
                 removeDegree={this.removeDegree}

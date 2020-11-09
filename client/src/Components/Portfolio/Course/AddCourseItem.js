@@ -89,6 +89,7 @@ export default class AddCourseItem extends Component {
                   api={this.props.api}
                   removeCourse={this.removeCourse}
                   patchOneCourse={this.patchOneCourse}
+                  listDegree={this.state.listDegree}
                 />
               </Col>
             </Row>
