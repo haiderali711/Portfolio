@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Container, Jumbotron, ListGroup } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
-import AddCourseItem from "../Components/Portfolio/Course/AddCourseItem";
+import AddCourseItem from "../Components/Portfolio/Course/CourseItem";
 import AddSkillItem from "../Components/Portfolio/Skills/skillItem";
-import AddProjectItem from "../Components/Portfolio/AddProjectItem";
+import AddProjectItem from "../Components/Portfolio/Project/ProjectItem";
 import AddDegreeItem from "../Components/Portfolio/Degree/degreeItem";
 
 import "./PortfolioSkeleton.css";
@@ -11,44 +11,55 @@ import "./PortfolioSkeleton.css";
 export default class PortfolioSkeleton extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = { activeWindow: 0 };
+    this.nodeRef = React.createRef();
   }
-
   renderRelativeItem = () => {
     return (
       <div>
         <CSSTransition
+          nodeRef={this.nodeRef}
           in={this.state.activeWindow === 1}
           timeout={300}
           classNames="objs"
           unmountOnExit
         >
-          <AddSkillItem api={this.props.api} />
+          <div ref={this.nodeRef}>
+            <AddSkillItem api={this.props.api} />
+          </div>
         </CSSTransition>
         <CSSTransition
+          nodeRef={this.nodeRef}
           in={this.state.activeWindow === 2}
           timeout={300}
           classNames="objs"
           unmountOnExit
         >
-          <AddProjectItem api={this.props.api} />
+          <div ref={this.nodeRef}>
+            <AddProjectItem api={this.props.api} />
+          </div>
         </CSSTransition>
         <CSSTransition
+          nodeRef={this.nodeRef}
           in={this.state.activeWindow === 3}
           timeout={300}
           classNames="objs"
           unmountOnExit
         >
-          <AddCourseItem api={this.props.api} />
+          <div ref={this.nodeRef}>
+            <AddCourseItem api={this.props.api} />
+          </div>
         </CSSTransition>
         <CSSTransition
+          nodeRef={this.nodeRef}
           in={this.state.activeWindow === 4}
           timeout={300}
           classNames="objs"
           unmountOnExit
         >
-          <AddDegreeItem api={this.props.api} />
+          <div ref={this.nodeRef}>
+            <AddDegreeItem api={this.props.api} />
+          </div>
         </CSSTransition>
       </div>
     );
