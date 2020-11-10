@@ -5,12 +5,23 @@ import axios from "axios";
 export default function AddNewProject(props) {
   const [show, setShow] = useState(false);
   const [message, newMessage] = useState("");
+  let nameRef = React.useRef(null);
+  let linkRef = React.useRef(null);
+  let detailRef = React.useRef(null);
+  let pictureRef = React.useRef(null);
+
+  let resetForm = () => {
+    nameRef.current.value = "";
+    linkRef.current.value = "";
+    detailRef.current.value = "";
+    pictureRef.current.value = "";
+  };
 
   let createProject = () => {
-    let nameF = document.getElementById("formName").value;
-    let linkF = document.getElementById("formLink").value;
-    let detailF = document.getElementById("formDetails").value;
-    let pictureF = document.getElementById("formDetails").value;
+    let nameF = nameRef.current.value;
+    let linkF = linkRef.current.value;
+    let detailF = detailRef.current.value;
+    let pictureF = pictureRef.current.value;
     let bodyO = {};
     if (nameF === "" || detailF === "") {
       setShow(true);
@@ -30,6 +41,7 @@ export default function AddNewProject(props) {
       .post(props.api + "/projects/", bodyO)
       .then((res) => {
         console.log(res.data);
+        resetForm();
       })
       .catch((error) => {
         console.log(error);
@@ -58,6 +70,7 @@ export default function AddNewProject(props) {
                   <Form.Control
                     type="text"
                     placeholder="Enter the Name of the Project"
+                    ref={nameRef}
                   />
                 </Form.Group>
                 <Form.Group controlId="formLink">
@@ -65,6 +78,7 @@ export default function AddNewProject(props) {
                   <Form.Control
                     type="text"
                     placeholder="Link to your project"
+                    ref={linkRef}
                   />
                 </Form.Group>
                 <Form.Group controlId="fromPictureLink">
@@ -72,6 +86,7 @@ export default function AddNewProject(props) {
                   <Form.Control
                     type="text"
                     placeholder="A link to A picture of your project"
+                    ref={pictureRef}
                   />
                 </Form.Group>
                 <Form.Group controlId="formDetails">
@@ -80,6 +95,7 @@ export default function AddNewProject(props) {
                     as="textarea"
                     rows={3}
                     placeholder="Maximum 200 Letters"
+                    ref={detailRef}
                   />
                 </Form.Group>
                 <Button variant="dark" type="button" onClick={createProject}>
