@@ -13,12 +13,11 @@ const createProject = (req, res) => {
           .then((result) => {
             if (!result) throw 404;
 
-            // res.status(200).json(result);
+            res.status(201).json(result);
           })
           .catch((error) => {
             res.status(500).json({ message: error });
           });
-        res.status(201).json(project);
       } else {
         res.status(200).json({
           message: "Project with this name for this user already exists",
@@ -59,7 +58,6 @@ const deleteProject = (req, res, next) => {
     res.status(202).json(foundProject);
   });
 };
-
 
 module.exports = {
   createProject,

@@ -1,16 +1,48 @@
-import React /*useState*/ from "react";
-import { Accordion, Card, Form, Button } from "react-bootstrap";
-// import axios from "axios";
+import React, { useState } from "react";
+import { Accordion, Card, Form, Button, Toast } from "react-bootstrap";
+import axios from "axios";
 
-export default function AddNewProject() {
-  // name: { type: String, required: true, maxlength: 50 },
-  // detail : { type: String, required: true, maxlength: 200 },
-  // link : { type: String, required: true, maxlength: 200 },
-  // user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  // picture : { type: String, maxlength: 200 }
-  let createProject = () => {};
+export default function AddNewProject(props) {
+  const [show, setShow] = useState(false);
+  const [message, newMessage] = useState("");
+
+  let createProject = () => {
+    let nameF = document.getElementById("formName").value;
+    let linkF = document.getElementById("formLink").value;
+    let detailF = document.getElementById("formDetails").value;
+    let pictureF = document.getElementById("formDetails").value;
+    let bodyO = {};
+    if (nameF === "" || detailF === "") {
+      setShow(true);
+      newMessage(
+        "You have to provide atleast Name and detail for the project."
+      );
+      return null;
+    } else {
+      bodyO.user = props.userID;
+      bodyO.name = nameF;
+      bodyO.detail = detailF;
+      if (linkF !== "") bodyO.link = linkF;
+      if (pictureF !== "") bodyO.picture = pictureF;
+    }
+
+    axios
+      .post(props.api + "/projects/", bodyO)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
+      <div>
+        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
+          <Toast.Body>{message}</Toast.Body>
+        </Toast>
+      </div>
+
       <Accordion defaultActiveKey="0">
         <Card>
           <Card.Header>
@@ -28,7 +60,7 @@ export default function AddNewProject() {
                     placeholder="Enter the Name of the Project"
                   />
                 </Form.Group>
-                <Form.Group controlId="fromLink">
+                <Form.Group controlId="formLink">
                   <Form.Label>External Link</Form.Label>
                   <Form.Control
                     type="text"
