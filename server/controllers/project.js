@@ -59,8 +59,22 @@ const deleteProject = (req, res, next) => {
   });
 };
 
+const getProjectByID = (req, res, next) => {
+  let id = req.params.id;
+
+  Project.findById({ _id: id }, (err, foundProject) => {
+    if (err) throw 404;
+    if (foundProject === null) {
+      res.status(404).json({ message: "notfound" });
+    } else {
+      res.status(200).json(foundProject);
+    }
+  });
+};
+
 module.exports = {
   createProject,
   deleteProject,
   patchProject,
+  getProjectByID,
 };

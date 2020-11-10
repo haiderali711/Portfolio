@@ -41,6 +41,7 @@ export default function AddNewProject(props) {
       .post(props.api + "/projects/", bodyO)
       .then((res) => {
         console.log(res.data);
+        props.addNewProject(res.data);
         resetForm();
       })
       .catch((error) => {

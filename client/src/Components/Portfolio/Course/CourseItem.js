@@ -72,28 +72,27 @@ export default class AddCourseItem extends Component {
     return (
       <div>
         <Container>
-          <Jumbotron>
-            <Row>
-              <Col>
-                <CreateCourseItem
-                  userID={this.userID}
-                  listDegree={this.state.listDegree}
-                  api={this.props.api}
-                  addNewCourse={this.addNewCourse}
-                />
-              </Col>
-              <Col>
-                <ListCourses
-                  userID={this.userID}
-                  arrayCourse={this.state.listCourse}
-                  api={this.props.api}
-                  removeCourse={this.removeCourse}
-                  patchOneCourse={this.patchOneCourse}
-                  listDegree={this.state.listDegree}
-                />
-              </Col>
-            </Row>
-          </Jumbotron>
+          <br />
+          <Row>
+            <Col>
+              <CreateCourseItem
+                userID={this.userID}
+                listDegree={this.state.listDegree}
+                api={this.props.api}
+                addNewCourse={this.addNewCourse}
+              />
+            </Col>
+            <Col>
+              <ListCourses
+                userID={this.userID}
+                arrayCourse={this.state.listCourse}
+                api={this.props.api}
+                removeCourse={this.removeCourse}
+                patchOneCourse={this.patchOneCourse}
+                listDegree={this.state.listDegree}
+              />
+            </Col>
+          </Row>
         </Container>
       </div>
     );

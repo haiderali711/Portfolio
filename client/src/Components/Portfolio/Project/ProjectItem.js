@@ -39,11 +39,10 @@ export default class ProjectItem extends Component {
     this.setState({ listProjects: newListProjectArray });
   };
 
-  removeCourse = (idProject) => {
+  removeProject = (idProject) => {
     axios
       .delete(this.props.api + "/projects/" + idProject)
       .then((resp) => {
-        console.log(resp);
         let newProjects = [];
         this.state.listProjects.forEach((element) => {
           if (element._id !== idProject) newProjects.push(element);
@@ -59,33 +58,32 @@ export default class ProjectItem extends Component {
     return (
       <div>
         <Container>
-          <Jumbotron>
-            <Row>
-              <Col>
-                <AddNewProject
-                  api={this.props.api}
-                  userID={this.userID}
-                  addNewProject={this.addNewProject}
-                  /*Recieves an object which will be added to the List */
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <PojectList
-                  api={this.props.api}
-                  userID={this.userID}
-                  listProjects={this.state.listProjects}
-                  /*Recieves the Projects ID to remove it from
+          <br />
+          <Row>
+            <Col>
+              <AddNewProject
+                api={this.props.api}
+                userID={this.userID}
+                addNewProject={this.addNewProject}
+                /*Recieves an object which will be added to the List */
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <PojectList
+                api={this.props.api}
+                userID={this.userID}
+                listProjects={this.state.listProjects}
+                /*Recieves the Projects ID to remove it from
                   the database and reupdate the state*/
-                  removeCourse={this.removeCourse}
-                  /* Receives the patched object to be replaced in
+                removeProject={this.removeProject}
+                /* Receives the patched object to be replaced in
                   the main list*/
-                  patchOneProject={this.patchOneProject}
-                />
-              </Col>
-            </Row>
-          </Jumbotron>
+                patchOneProject={this.patchOneProject}
+              />
+            </Col>
+          </Row>
         </Container>
       </div>
     );
